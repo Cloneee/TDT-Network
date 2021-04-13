@@ -19,11 +19,12 @@ const AccountSchema = mongoose.Schema({
     },
     avatar:{
         type: String,
-        default: null
+        default: '/public/new_user.jpg'
     },
     role: {
-        admin: Boolean,
-        mod: Boolean
+        type: String,
+        default: 'moderator',
+        required: true
     }
 })
 

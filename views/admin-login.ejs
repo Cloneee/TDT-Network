@@ -14,43 +14,28 @@
 </head>
 
 <body>
-    <div class="banner">
-        <img src="/public/logo.png" alt="logo">
-        <img src="/public/banner.png" alt="banner">
-    </div>
-    <div class="page-break mb-5"></div>
-    <div class="main">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col"></div>
-                <div class="col">
-                    <div class=" login-form">
-                        <div class="login-title center">
-                            <h2>Admin</h2>
-                        </div>
-                        <div class="center">
-                            <form method="post" action="/admin/login">
-                                <label class="form-label" for="username">Username</label> <br>
-                                <input class="form-control" type="text" id="username" name="username" value="<%=locals.username%>"> <br>
-                                <label class="form-label" for="password">Password</label> <br>
-                                <input class="form-control" type="password" id="password" name="password">
-                                <% if (typeof e !== 'undefined' && e) { %>
-                                    <div class="alert alert-danger" role="alert">
-                                        Something's wrong!
-                                    </div>
-                                <% } %>
-                                <div class="d-grid gap-2 mt-4">
-                                    <button class="btn btn-primary" type="submit">Login</button>
-                                </div>                                
-                            </form>                            
-                        </div>
-                    </div>                    
+    <div class="d-flex flex-column justify-content-center align-items-center main-page">
+        <img src="/public/brand.png" alt="logo" class="pb-3">
+        <div class="login-panel d-flex flex-column justify-content-center align-items-center pt-3">
+            <h1 class="pb-3">Admin Login</h1>
+            <form method="post" action="/admin/login">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input class="form-control" type="text" name="username" id="username" value="<%=locals.username%>">
                 </div>
-                <div class="col"></div>
-            </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input class="form-control" type="password" name="password" id="password">
+                </div> 
+                <% if (typeof e !== 'undefined' && e) { %>
+                    <div class="alert alert-danger" role="alert">
+                        Something's wrong!
+                    </div>
+                <% } %>
+                <button class="btn btn-primary mt-3 float-end" type="submit" id="submit-btn">Login <i class="bi bi-box-arrow-in-right"></i></button>
+            </form>
         </div>
     </div>
-    <div class="footer"></div>
 </body>
 
 </html>

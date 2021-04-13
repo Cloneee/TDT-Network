@@ -8,10 +8,14 @@ const registerValidator = require("./validators/registerValidator");
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
-Router.get('/', (req,res)=>{
-     res.redirect('admin/login');
+const { requireAdminAuth, checkAdmin, isLogged } = require('../middleware/authMiddleware')
+
+Router.get('*', checkAdmin)
+
+Router.get('/', requireAdminAuth, (req,res)=>{
+     res.render('views/admin-panel.ejs');
 })
-Router.get('/login', (req,res)=>{
+Router.get('/login', isLogged, (req,res)=>{
     res.render('views/admin-login')
 })
 
@@ -38,11 +42,8 @@ Router.post("/login", loginValidator, (req, res) => {
                 },
                 (err, token) => {
                   if (err) throw err;
-                  res.status(200).json({
-                    code: 0,
-                    message: "Đăng nhập thành công",
-                    token: token,
-                  });
+                  res.cookie('jwt', token, { maxAge: 900000, httpOnly: true })
+                    .redirect('/admin')
                 }
               );
             } else {
