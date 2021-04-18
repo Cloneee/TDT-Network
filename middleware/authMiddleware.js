@@ -8,17 +8,21 @@ const requireAuth = (req,res,next) =>{
         jwt.verify(token, process.env.JWT_SECRET, (err,decodedToken)=>{
             if (err){
                 console.log(err)
-                return res.redirect('/login')
+                res.redirect('/login')
             }
             else{
-                next()
+                if (decodedToken.mssv){
+                    return next()
+                }
+                else {
+                    res.redirect('/login')
+                }
             }
         })
     }
     else{
-        return res.redirect('/login')
+         res.redirect('/login')
     }
-    next()
 }
 
 const requireAdminAuth = (req,res,next) =>{
@@ -27,17 +31,21 @@ const requireAdminAuth = (req,res,next) =>{
         jwt.verify(token, process.env.JWT_SECRET, (err,decodedToken)=>{
             if (err){
                 console.log(err)
-                return res.redirect('/admin/login')
+                 res.redirect('/admin/login')
             }
             else{
-                next()
+                if (decodedToken.username){
+                    return next()
+                }
+                else {
+                    res.redirect('/admin/login')
+                }
             }
         })
     }
     else{
-        return res.redirect('/admin/login')
+         res.redirect('/admin/login')
     }
-    next()
 }
 
 const checkUser =  (req,res,next) =>{
@@ -92,10 +100,10 @@ const isLogged = (req,res,next) =>{
             else{
                 //Check user or admin
                 if (decodedToken.mssv){
-                     res.redirect('/')
+                    return res.redirect('/')
                 }
                 else{
-                    res.redirect('/admin')
+                    return res.redirect('/admin')
                 }
             }
         })

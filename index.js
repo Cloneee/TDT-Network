@@ -16,6 +16,7 @@ const indexRouter = require('./router/indexRouter')
 
 //Setup database
 mongoose.Promise = global.Promise
+mongoose.set('useFindAndModify', false);
 const db = mongoose.connection
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true })
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))
@@ -33,14 +34,19 @@ app.use(express.json())
 app.use(passport.initialize())
 app.use(cookieParser());
 
-app.get('*', checkUser)
+app.use('*', checkUser)
 
 app.use('/', indexRouter)
 app.use('/admin', adminRouter)
 app.use('/auth', authRouter)
 
+app.get('/debug', (req,res)=>{
+    console.log(locals.admin.toString())
+    res.send('debug')
+})
+
 app.use((req,res)=>{
-    return res.status(404).render('views/404.ejs');
+    res.status(404).render('views/404.ejs')
 })
 
 app.listen(port, () => {

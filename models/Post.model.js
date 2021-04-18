@@ -1,18 +1,26 @@
 const mongoose = require('mongoose')
 
 const PostSchema = mongoose.Schema({
-    title: {
+    owner: {
         type: String,
         required: true
     },
-    description: {
+    content: {
         type: String,
         required: true
     },
     date: {
         type: Date,
         default: Date.now
-    }
+    },
+    comments:[{
+        user: String,
+        comment: String,
+        date: {
+            type: Date,
+            default: Date.now
+        }
+    }]
 })
 
 module.exports = mongoose.model('Post', PostSchema)
