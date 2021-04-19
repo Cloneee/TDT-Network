@@ -13,16 +13,6 @@ Router.get('/login', isLogged, (req, res) => {
 Router.get('/logout', (req, res) => {
    res.cookie('jwt', '', { expires: new Date(0) }).redirect('/login')
 })
-Router.post('/post', (req, res) => {
-   let mssv = res.locals.user.mssv
-   let content = req.body.content
-   let post = new postModel({
-      owner: mssv,
-      content: content
-   })
-   post.save()
-   res.redirect('/post');
-})
 Router.get('/profile/:mssv',(req,res)=>{
    let mssv = req.params.mssv
    sinhvienModel.findOne({mssv: mssv}, (err,sinhvien)=>{
@@ -33,6 +23,23 @@ Router.get('/profile/:mssv',(req,res)=>{
          res.json(sinhvien)
       }
    })
+})
+
+
+Router.post('/post', (req, res) => {
+   let mssv = res.locals.user.mssv
+   let content = req.body.content
+   if (content != ''){
+      let post = new postModel({
+         owner: mssv,
+         content: content
+      })
+      post.save()
+      res.status(200).send(`MSSV: ${mssv} \nContent: ${content}`)
+   }
+   else{
+      res.status(401).send(`Vui lòng nhập nội dung`)
+   }
 })
 Router.get('/post', (req, res) => {
    res.render('views/post')
