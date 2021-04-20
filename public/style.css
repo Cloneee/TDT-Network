@@ -214,12 +214,14 @@ img{
 .nav-bar {
   height: 5%
 }
-.newsfeed{
-  height: 1000px;
-}
+/* .newsfeed{
+} */
 .notiboard{
   height: 500px
 }
 .calendar{
   height: 300px
+}
+.content{
+  border: #393838 solid;
 }
