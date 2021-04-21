@@ -75,10 +75,15 @@ Router.post("/login", loginValidator, (req, res) => {
   }
 });
 
+
+Router.get('/register',requireAdminAuth, (req,res)=>{
+  res.render('views/register')
+})
 Router.post("/register", registerValidator, (req, res) => {
+  console.log(req.body.faculty)
   let result = validationResult(req);
   if (result.errors.length === 0) {
-    let { username, password, email, fullname, avatar, role } = req.body;
+    let { username, password, email, fullname, avatar, role, faculty } = req.body;
     accountModel.findOne({ username: username }, (err, isDup) => {
       if (err) res.status(400).json({ message: err });
       if (isDup)
@@ -96,7 +101,8 @@ Router.post("/register", registerValidator, (req, res) => {
               email: email,
               fullname: fullname,
               avatar: avatar,
-              roll: role
+              roll: role,
+              faculty: faculty
             });
             return user.save();
           })

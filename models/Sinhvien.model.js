@@ -16,6 +16,8 @@ const SinhvienShcema = mongoose.Schema({
         type: String,
         required: true
     },
+    class: String,
+    faculty: String,
     avatar:{
         type: String,
         default: null

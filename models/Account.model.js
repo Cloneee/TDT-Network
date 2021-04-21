@@ -25,7 +25,10 @@ const AccountSchema = mongoose.Schema({
         type: String,
         default: 'moderator',
         required: true
-    }
+    },
+    faculty:[{
+        type: String
+    }]
 })
 
 module.exports = mongoose.model('Account', AccountSchema)

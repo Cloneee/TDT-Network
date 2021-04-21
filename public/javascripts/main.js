@@ -1,5 +1,5 @@
 let pageIndex = 0
-let nextIndex = pageIndex+1
+let nextIndex = pageIndex + 1
 let loadMore = (localPageIndex) => {
     $.getJSON(`/posts/${localPageIndex}`, (posts) => {
         if (posts) {
@@ -15,23 +15,22 @@ let loadMore = (localPageIndex) => {
         }
         nextIndex++
     })
-    
 }
 
 
-$(document).ready(()=>{
+$(document).ready(() => {
     loadMore(pageIndex)
     pageIndex++
 })
 
 $(document).scroll(() => {
-    if (($(document).scrollTop()+($(window).height()))>=($('#infinite-scroll').height())){
-        if (pageIndex<nextIndex){
+    if (($(document).scrollTop() + ($(window).height())) >= ($('#infinite-scroll').height())) {
+        if (pageIndex < nextIndex) {
             loadMore(pageIndex)
             pageIndex++
         }
     }
-    
+
 })
 
 $('#post-content-btn').click(() => {
