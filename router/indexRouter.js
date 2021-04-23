@@ -20,11 +20,11 @@ Router.get('/profile/:mssv', (req, res) => {
          res.status(404).render('views/404.ejs')
       }
       else {
-         res.json(sinhvien)
+         res.locals.sinhvien = sinhvien
+         res.render('views/profile')
       }
    })
 })
-
 
 Router.post('/post', (req, res) => {
    let mssv = res.locals.user.mssv
@@ -75,8 +75,17 @@ Router.get('/posts/:pageIndex', (req, res) => {
       .catch(err => {
          res.send(err)
       })
-
-
+})
+Router.get('/profile/:mssv/posts', (req, res) => {
+   let mssv = req.params.mssv
+   postModel.find({owner: mssv}).sort({ date: -1 }).exec((err, posts)=>{
+      if (err){
+         res.status(404).send(err)
+      }
+      else{
+         res.json(posts)
+      }
+   })
 })
 
 module.exports = Router
