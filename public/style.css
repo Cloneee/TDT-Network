@@ -202,11 +202,63 @@ img{
   max-height: 100%;
   max-width: 100%;
 }
+.avatar{
+  
+}
+.post{
+  width:415px;
+  height: 100%;
+}
+.notification-detail{
+  height: 120px;
+  margin-top: 10px;
+  background-color: #8f8a8a;
+  border-radius: 5px;
+  
+}
+.profile-sv{
+  height: 100px;
+  width: 100px;
+  background-color: #8f8a8a;
+  margin:19px;
+  float:left;
+}
+.profile-phongkhoa{
+  height: 100px;
+  width: 100px;
+  background-color: #8f8a8a;
+  margin:19px;
+  float:left;
+}
+#tenthongbao{
+  font-size: 140%;
+}
+#name-notification{
+  width: 250px;
+  border-radius: 4px;
+}
+#chitietthongbao{
+  color: aqua;
+  text-decoration: none;
+}
+
+#detail-noti{
+  width:330px;
+  margin: auto;
+  border-radius: 4px;
+
+}
+#chon-khoa{
+  border-radius: 4px;
+  width: 130px;
+}
+
 #avatar{
   height: 100px;
   width: 100px;
   object-fit:cover;
-  border-radius: 50%
+  border-radius: 70%;
+
 }
 #img-nav{
   height: 100%;
@@ -217,8 +269,33 @@ img{
 /* .newsfeed{
 } */
 .notiboard{
-  height: 500px
+  height: 500px;
+  
 }
+.newfeed-notification{
+  background-color: rgb(173, 245, 221);
+  border-radius: 5px;
+  margin-bottom: 10px;
+  height: 40px;
+}
+.feed{
+  background-color: rgb(231, 231, 231);
+  border-color: #393838;
+  border-radius: 10px;
+}
+.wall-left{
+  background-color: rgb(168, 189, 202);
+  border-color: #393838;
+  border-radius: 10px;
+  height: 250px;
+}
+.wall-right{
+  background-color: rgb(231, 231, 231);
+  border-color: #393838;
+  border-radius: 10px;
+  height: 400px;
+}
+
 .calendar{
   height: 300px
 }
