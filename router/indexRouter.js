@@ -21,7 +21,7 @@ Router.get('/profile/:mssv', (req, res) => {
       }
       else {
          res.locals.sinhvien = sinhvien
-         res.render('views/profile')
+         res.render('views/wall-profile')
       }
    })
 })
@@ -39,9 +39,6 @@ Router.post('/post', (req, res) => {
    else {
       res.status(401).send(`Vui lòng nhập nội dung`)
    }
-})
-Router.get('/post', (req, res) => {
-   res.render('views/post')
 })
 Router.get('/posts/:pageIndex', (req, res) => {
    let pageIndex = parseInt(req.params.pageIndex)

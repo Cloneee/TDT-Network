@@ -10,16 +10,13 @@ const jwt = require('jsonwebtoken')
 
 const { requireAdminAuth, checkAdmin, isLogged } = require('../middleware/authMiddleware')
 
-Router.get('*', checkAdmin)
-
+Router.use('*', checkAdmin)
 Router.get('/', requireAdminAuth, (req, res) => {
   res.render('views/admin-panel.ejs');
 })
-
 Router.get('/login', isLogged, (req, res) => {
   res.render('views/admin-login')
 })
-
 Router.post("/login", loginValidator, (req, res) => {
   let result = validationResult(req);
   if (result.errors.length === 0) {
@@ -74,12 +71,10 @@ Router.post("/login", loginValidator, (req, res) => {
     });
   }
 });
-
-
 Router.get('/register',requireAdminAuth, (req,res)=>{
   res.render('views/register')
 })
-Router.post("/register", registerValidator, (req, res) => {
+Router.post('/register', registerValidator, (req, res) => {
   console.log(req.body.faculty)
   let result = validationResult(req);
   if (result.errors.length === 0) {

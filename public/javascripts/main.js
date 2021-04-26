@@ -12,7 +12,7 @@ let loadMore = (localPageIndex) => {
                         <p name="${data._id}">${data.content}</p>
                         <p><i>${data.date}</i></p>
                         <button class="btn btn-danger" id="${data._id}" onclick="delete_post(this.id)">Delete</button>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editContentModal" name="${data._id}" onclick="edit(this.name)">
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editContentModal" name="${data._id}" onclick="edit(this.name)">
                             Edit
                         </button>
                     </div>
