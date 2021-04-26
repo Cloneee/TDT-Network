@@ -13,6 +13,10 @@ const PostSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    image:{
+        type: String,
+        default: "none"
+    },
     comments:[{
         user: String,
         comment: String,

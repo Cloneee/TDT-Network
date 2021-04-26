@@ -54,6 +54,9 @@
                     <button class="btn btn-primary" type="button" id="post-content-btn">Post</button>
                 </div>
                 <h1><%= locals.user.fullname %> </h1>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editContentModal">
+                    Edit
+                </button>
                 <div id="infinite-scroll"></div>
             </div>
             <div class="col-4 ">
@@ -76,6 +79,24 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="editContentModal" tabindex="-1" aria-labelledby="editContentModal" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editContentModal">Edit</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <input class="form-control" type="text" name="edit-content" id="content-update">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btn-close-modal">Close</button>
+              <button type="button" class="btn btn-primary" id="edit-btn">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
     <script src="../public/javascripts/main.js"></script>
 </body>

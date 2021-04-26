@@ -24,8 +24,6 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
 const port = process.env.PORT || 8080
 
-
-
 app.set('view engine', 'ejs')
 app.set('views', __dirname)
 app.use('/public', express.static(__dirname + '/public'));
@@ -39,11 +37,6 @@ app.use('*', checkUser)
 app.use('/', indexRouter)
 app.use('/admin', adminRouter)
 app.use('/auth', authRouter)
-
-app.get('/debug', (req,res)=>{
-    console.log(locals.admin.toString())
-    res.send('debug')
-})
 
 app.use((req,res)=>{
     res.status(404).render('views/404.ejs')
