@@ -21,11 +21,10 @@ Router.get('/profile/:mssv', (req, res) => {
       }
       else {
          res.locals.sinhvien = sinhvien
-         res.render('views/profile')
+         res.render('views/wall-profile')
       }
    })
 })
-
 Router.post('/post', (req, res) => {
    let mssv = res.locals.user.mssv
    let content = req.body.content
@@ -40,9 +39,6 @@ Router.post('/post', (req, res) => {
    else {
       res.status(401).send(`Vui lòng nhập nội dung`)
    }
-})
-Router.get('/post', (req, res) => {
-   res.render('views/post')
 })
 Router.get('/posts/:pageIndex', (req, res) => {
    let pageIndex = parseInt(req.params.pageIndex)
@@ -84,6 +80,49 @@ Router.get('/profile/:mssv/posts', (req, res) => {
       }
       else{
          res.json(posts)
+      }
+   })
+})
+Router.delete('/post/:id', (req,res)=>{
+   let id = req.params.id
+   postModel.findById(id).exec((err,post)=>{
+      if (err){
+         res.status(404).send("Can't find post")
+      }
+      else if (res.locals.user.mssv == post.owner){
+         postModel.findByIdAndDelete(id, (err,result)=>{
+            if (err){
+               res.status(404).send("Can't find post")
+            }
+            else{
+               res.status(200).send('Delete post with id: ' + id)
+            }
+         })
+      }
+      else{
+         res.status(403).send("You don't have permission")
+      }
+   })
+})
+Router.put('/post/:id', (req,res)=>{
+   let id = req.params.id
+   let contentUpdated = req.body.content
+   postModel.findById(id).exec((err,post)=>{
+      if (err){
+         res.status(404).send("Can't find post")
+      }
+      else if (res.locals.user.mssv == post.owner){
+         postModel.findByIdAndUpdate(id,{content: contentUpdated}, (err,result)=>{
+            if (err){
+               res.status(404).send("Can't find post")
+            }
+            else{
+               res.status(200).send('Update post with id: ' + id)
+            }
+         })
+      }
+      else{
+         res.status(403).send("You don't have permission")
       }
    })
 })
