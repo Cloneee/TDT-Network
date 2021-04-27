@@ -44,28 +44,28 @@
     </nav>
     <div class="container">
         
-        
-        
+        <!-- 
         <div class="row ">
             <div class="col-3">
             </div>
-            <div class="col-9 ">
+            <div class="col-6 ">
                 <div class="newfeed-notification p-2">
                     Newfeed notification
                 </div>
                 
             </div>
-            
+            <div class="col-3">
+            </div>
             
         </div> 
-
+        -->
         <div class="row">
             <!-- news feed section -->
             <div class="col-3 wall-left">
                 <h1>Trang chủ<h1>
                 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
-                <h5>Phân loại thông báo</h5>
-                <h5>Cổng thông tin</h5>
+                <h5> <a href="#" id="congthongtin">Phân loại thông báo</a></h5>
+                <h5> <a href="#" id="congthongtin">Cổng thông tin </a></h5>
             </div>
 
             
@@ -73,60 +73,53 @@
             <div class="col-9 ">
                 <div class="feed">
                     <div class="d-flex justify-content-center">
-                        <h1>Danh sách phòng ban</h1>
+                        <h1>Thông báo</h1>
                     </div>
-                    <div class="  ">
-                        <div class="profile-phongkhoa">
-                            <a href="#"><img src="../public/logo.png"> </a> 
+                    <div class="d-flex flex-column ">
+                        <div class="p-2">
+                            <input type="text" id="name-notification" name="name-notification" placeholder="Tìm kiếm theo tên thông báo">
+                            <input type="text" id="detail-noti" name="detail-noti" placeholder="Tìm kiếm theo nội dung">
+                            <select name="chon-khoa" id="chon-khoa" >
+                                <option default value="">Chọn khoa</option>
+                                <option value="cntt">CNTT</option>
+                                <option value="ketoan">Kế toán</option>
+                                <option value="nganhang">Ngân hàng</option>
+                            </select>
                         </div>
-                        <div class="profile-phongkhoa">
-                            <a href="#"><img src="../public/logo.png"> </a> 
+                        <div class="pagination">
+                            <a href="#">&laquo;</a>
+                            <a href="#">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <a href="#">6</a>
+                            <a href="#">&raquo;</a>
                         </div>
-                        <div class="profile-phongkhoa">
-                            <a href="#"><img src="../public/logo.png"> </a>
+                        <div class="notification-detail p-2">
+                            <b id="tenthongbao">Tên</b></br>
+                            Nội dung</br>
+                            <a href ="#" id = "chitietthongbao"> Chi tiết thông báo </a>
                         </div>
-                        <div class="profile-phongkhoa">
-                            <a href="#"><img src="../public/logo.png"> </a>
+                        <div class="notification-detail p-2">
+                            <b id="tenthongbao">Tên</b></br>
+                            Nội dung</br>
+                            <a href ="#" id = "chitietthongbao"> Chi tiết thông báo </a>
                         </div>
-                        <div class="profile-phongkhoa">
-                            <a href="#"><img src="../public/logo.png"> </a>
+                        <div class="notification-detail p-2">
+                            <b id="tenthongbao">Tên</b></br>
+                            Nội dung</br>
+                            <a href ="#" id = "chitietthongbao"> Chi tiết thông báo </a>
                         </div>
-                        <div class="profile-phongkhoa">
-                            <a href="#"><img src="../public/logo.png"> </a>
-                        </div>
-                        <div class="profile-phongkhoa">
-                            <a href="#"><img src="../public/logo.png"> </a>
-                        </div>
-                        <div class="profile-phongkhoa">
-                            <a href="#"><img src="../public/logo.png"> </a>
-                        </div>
-                        <div class="profile-phongkhoa">
-                            <a href="#"><img src="../public/logo.png"> </a>
-                        </div>
-                        <div class="profile-phongkhoa">
-                            <a href="#"><img src="../public/logo.png"> </a>
-                        </div>
-                        <div class="profile-phongkhoa">
-                            <a href="#"><img src="../public/logo.png"> </a>
-                        </div>
-                        <div class="profile-phongkhoa">
-                            <a href="#"><img src="../public/logo.png"> </a>
-                        </div>
-                        <div class="profile-phongkhoa">
-                            <a href="#"><img src="../public/logo.png"> </a>
-                        </div>
-                        <div class="profile-phongkhoa">
-                            <a href="#"><img src="../public/logo.png"> </a>
-                        </div>
-                        <div class="profile-phongkhoa">
-                            <a href="#"><img src="../public/logo.png"> </a>
-                        </div>
-                        <div class="profile-phongkhoa">
-                            <a href="#"><img src="../public/logo.png"> </a>
+                        <div class="notification-detail p-2">
+                            <b id="tenthongbao">Tên</b></br>
+                            Nội dung</br>
+                            <a href ="#" id = "chitietthongbao"> Chi tiết thông báo </a>
                         </div>
 
                         
-    
+
+                        
                     </div>
                     
                 </div>

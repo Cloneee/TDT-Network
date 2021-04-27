@@ -210,7 +210,7 @@ img{
 .notification-detail{
   height: 120px;
   margin-top: 10px;
-  background-color: #8f8a8a;
+  background-color: #aca8a8;
   border-radius: 5px;
   
 }
@@ -220,6 +220,7 @@ img{
   background-color: #8f8a8a;
   margin:19px;
   float:left;
+  border-radius: 5px;
 }
 .profile-phongkhoa{
   height: 100px;
@@ -227,7 +228,30 @@ img{
   background-color: #8f8a8a;
   margin:19px;
   float:left;
+  border-radius: 5px;
 }
+.noti{
+  height: auto;
+  background-color: #8f8a8a;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+.pagination a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
 #tenthongbao{
   font-size: 140%;
 }
@@ -239,18 +263,29 @@ img{
   color: aqua;
   text-decoration: none;
 }
-
+#edit-profile{
+  text-decoration: none;
+  color: rgb(105, 164, 231);
+}
 #detail-noti{
   width:330px;
   margin: auto;
   border-radius: 4px;
 
 }
+#congthongtin{
+  text-decoration: none;
+  color: #393838;
+}
 #chon-khoa{
   border-radius: 4px;
   width: 130px;
 }
-
+#xemtatca{
+  float: right;
+  text-align: end;
+  padding: auto;
+}
 #avatar{
   height: 100px;
   width: 100px;
