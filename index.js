@@ -6,9 +6,9 @@ const passport = require('passport')
 const cookieParser = require('cookie-parser')
 const { requireAuth, checkUser } = require('./middleware/authMiddleware')
 
-
 require('dotenv/config')
 require('./passport-setup')
+
 
 const adminRouter = require('./router/adminRouter')
 const authRouter = require('./router/authRouter')

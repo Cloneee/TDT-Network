@@ -261,7 +261,8 @@ img {
 }
 
 .content {
-  border: #393838 solid;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px -2px #000000;
 }
 
 .video-wrapper {

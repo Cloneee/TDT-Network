@@ -45,14 +45,33 @@
     </nav>
     <div class="container newsfeed">
         <div class="row">
-            <div class="col-8 bg-primary newsfeed">
-                <div class="form-group d-flex flex-row">
-                    <a href="#">
-                        <img src="../public/new_user.jpg" alt="avatar" id="avatar">
-                    </a>
-                    <textarea class="form-control mx-3" id="content" name="content" rows="3"></textarea>
-                    <button class="btn btn-primary" type="button" id="post-content-btn">Post</button>
-                </div>
+            <div class="col-8 newsfeed">
+                <form id="post-newsfeed" enctype="multipart/form-data" method="POST">
+                    <div class="form-group row justify-content-center align-items-center">
+                        <div class="col-3">
+                            <a href="#">
+                                <img src="../public/new_user.jpg" alt="avatar" id="avatar">
+                            </a>
+                        </div>
+                        <div class="col-9">
+                            <textarea class="form-control mx-3" id="content" name="content" rows="3"></textarea>
+                        </div>
+                        
+                    </div>
+                    <div class="row p-3 justify-content-center align-items-center ">
+                        <div class="col-6">
+                            <label for="video">Youtube link</label>
+                            <input type="text" id="video" name="video">
+                        </div>
+                        <div class="col-5">
+                            <input type="file" id="image" name="image" accept="image/jpg" />
+                        </div>
+                        <div class="col-1">
+                            <button class="btn btn-danger" type="submit" id="post-content-btn">Post</button>
+                        </div>
+                    </div>
+
+                </form>
                 <h1><%= locals.user.fullname %> </h1>
                 <div id="infinite-scroll"></div>
             </div>

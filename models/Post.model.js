@@ -14,8 +14,10 @@ const PostSchema = mongoose.Schema({
         default: Date.now
     },
     image:{
-        type: String,
-        default: "none"
+        type: String
+    },
+    video: {
+        type: String
     },
     comments:[{
         user: String,
