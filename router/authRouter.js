@@ -36,7 +36,7 @@ Router.get('/google/callback', passport.authenticate('google', { failureRedirect
             },
             process.env.JWT_SECRET,
             {
-                expiresIn: "1h",
+                expiresIn: "24h",
             },
             (err, token) => {
                 if (err) throw err;

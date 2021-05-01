@@ -48,6 +48,7 @@ Router.get('/posts/:pageIndex', (req, res) => {
                   res.send(err)
                }
                else {
+                  posts.unshift(res.locals.user.mssv)
                   res.json(posts)
                }
             })
@@ -58,6 +59,7 @@ Router.get('/posts/:pageIndex', (req, res) => {
                   res.send(err)
                }
                else {
+                  posts.unshift(res.locals.user.mssv)
                   res.json(posts)
                }
             })
@@ -70,71 +72,52 @@ Router.get('/posts/:pageIndex', (req, res) => {
          res.send(err)
       })
 })
-Router.post('/post', (req, res) => {
+Router.post('/post',upload.single('image'), (req, res) => {
    let mssv = res.locals.user.mssv
    let content = req.body.content
-   let video = req.body.video
-   
+   let fullname = res.locals.user.fullname
+   let type = req.body.type
+
    if (content != '') {
       let post = new postModel({
-         owner: mssv,
+         owner: {
+            fullname: fullname,
+            mssv: mssv
+         },
          content: content
       })
+      switch (type) {
+         case 'img':
+            post.set({ image: req.file.path })
+            break
+         case 'video':
+            post.set({ video: req.body.video })
+            break
+         default:
+      }
       post.save()
-      res.status(200).send(`MSSV: ${mssv} \nContent: ${content}`)
+      res.status(200).json(post)
    }
    else {
-      res.status(400).send(`Vui lòng nhập nội dung`)
+      res.status(400).send(`Please enter your caption`)
    }
 })
-Router.post('/postimage', upload.single('image'), (req, res) => {
-   let mssv = res.locals.user.mssv
-   let content = req.body.content
-   if (content != '') {
-      let post = new postModel({
-         owner: mssv,
-         content: content,
-         image: req.file.path
-      })
-      post.save()
-      res.status(200).send(`MSSV: ${mssv} \nContent: ${content}`)
-   }
-   else {
-      res.status(401).send(`Vui lòng nhập nội dung`)
-   }
-})
-Router.post('/postvideo', (req, res) => {
-   let mssv = res.locals.user.mssv
-   let content = req.body.content
-   let video = req.body.video
-   if (content != '') {
-      let post = new postModel({
-         owner: mssv,
-         content: content,
-         video: video
-      })
-      post.save()
-      res.status(200).send(`MSSV: ${mssv} \nContent: ${content}`)
-   }
-   else {
-      res.status(401).send(`Vui lòng nhập nội dung`)
-   }
-})
+
 Router.delete('/post/:id', (req, res) => {
    let id = req.params.id
    postModel.findById(id).exec((err, post) => {
       if (err) {
          res.status(404).send("Can't find post")
       }
-      else if (res.locals.user.mssv == post.owner) {
+      else if (res.locals.user.mssv == post.owner.mssv) {
          postModel.findByIdAndDelete(id, (err, result) => {
             if (err) {
                res.status(404).send("Can't find post")
             }
             else {
-               if(result.image){
-                  fs.unlink(result.image, (err)=>{
-                     if (err){
+               if (result.image) {
+                  fs.unlink(result.image, (err) => {
+                     if (err) {
                         console.log(err)
                         return
                      }
@@ -156,7 +139,7 @@ Router.put('/post/:id', (req, res) => {
       if (err) {
          res.status(404).send("Can't find post")
       }
-      else if (res.locals.user.mssv == post.owner) {
+      else if (res.locals.user.mssv == post.owner.mssv) {
          postModel.findByIdAndUpdate(id, { content: contentUpdated }, (err, result) => {
             if (err) {
                res.status(404).send("Can't find post")

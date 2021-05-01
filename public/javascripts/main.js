@@ -2,65 +2,152 @@
 // Infinite-scroll newsfeed
 let pageIndex = 0
 let nextIndex = pageIndex + 1
+let mssvViewer
+
+var textarea = document.querySelector('textarea');
+
+textarea.addEventListener('keydown', autosize);
+             
+function autosize(){
+  var el = this;
+  setTimeout(function(){
+    el.style.cssText = 'height:auto; padding:0';
+    // for box-sizing other than "content-box" use:
+    // el.style.cssText = '-moz-box-sizing:content-box';
+    el.style.cssText = 'height:' + el.scrollHeight + 'px';
+  },0);
+}
+
+function addNewPost(data, checkType, isAppending){
+    if (isAppending){
+        switch (checkType){
+            case 'img':
+                $('#infinite-scroll').append(`
+                    <div class="content m-3 p-3 bg-light bg-gradient" name="${data._id}">
+                        <div class="d-flex justify-content-between" name="${data._id}-title">
+                            <a href='/profile/${data.owner.mssv}'>
+                                <h4>${data.owner.fullname}</h4>
+                            </a>
+                        </div>
+                        <p name="${data._id}" class="text-break p-3" >${data.content}</p>
+                        <image src="${data.image}"></image>
+                        <p><i>${data.date.toLocaleString()}</i></p>
+                    </div>
+                `)
+                break
+            case 'video':
+                $('#infinite-scroll').append(`
+                    <div class="content m-3 p-3 bg-light bg-gradient" name="${data._id}">
+                        <div class="d-flex justify-content-between" name="${data._id}-title">
+                            <a href='/profile/${data.owner.mssv}'>
+                                <h4>${data.owner.fullname}</h4>
+                            </a>
+                        </div>
+                        <p name="${data._id}" class="text-break p-3" >${data.content}</p>
+                        <div class="video-wrapper">
+                            <iframe src="https://www.youtube.com/embed/${data.video}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <p><i>${data.date.toLocaleString()}</i></p>
+                    </div>
+                `)
+                break
+            default:
+                $('#infinite-scroll').append(`
+                    <div class="content m-3 p-3 bg-light bg-gradient" name="${data._id}">
+                        <div class="d-flex justify-content-between" name="${data._id}-title">
+                            <a href='/profile/${data.owner.mssv}'>
+                                <h4>${data.owner.fullname}</h4>
+                            </a>
+                        </div>
+                        <p name="${data._id}" class="text-break p-3" >${data.content}</p>
+                        <p><i>${data.date.toLocaleString()}</i></p>
+                    </div>
+                `)
+                break
+        }
+    }
+    else {
+        switch (checkType){
+            case 'img':
+                $('#infinite-scroll').prepend(`
+                    <div class="content m-3 p-3 bg-light bg-gradient" name="${data._id}">
+                        <div class="d-flex justify-content-between" name="${data._id}-title">
+                            <a href='/profile/${data.owner.mssv}'>
+                                <h4>${data.owner.fullname}</h4>
+                            </a>
+                        </div>
+                        <p name="${data._id}" class="text-break p-3" >${data.content}</p>
+                        <image src="${data.image}"></image>
+                        <p><i>${data.date.toLocaleString()}</i></p>
+                    </div>
+                `)
+                break
+            case 'video':
+                $('#infinite-scroll').prepend(`
+                    <div class="content m-3 p-3 bg-light bg-gradient" name="${data._id}">
+                        <div class="d-flex justify-content-between" name="${data._id}-title">
+                            <a href='/profile/${data.owner.mssv}'>
+                                <h4>${data.owner.fullname}</h4>
+                            </a>
+                        </div>
+                        <p name="${data._id}" class="text-break p-3" >${data.content}</p>
+                        <div class="video-wrapper">
+                            <iframe src="https://www.youtube.com/embed/${data.video}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <p><i>${data.date.toLocaleString()}</i></p>
+                    </div>
+                `)
+                break
+            default:
+                $('#infinite-scroll').prepend(`
+                    <div class="content m-3 p-3 bg-light bg-gradient" name="${data._id}">
+                        <div class="d-flex justify-content-between" name="${data._id}-title">
+                            <a href='/profile/${data.owner.mssv}'>
+                                <h4>${data.owner.fullname}</h4>
+                            </a>
+                        </div>
+                        <p name="${data._id}" class="text-break p-3" >${data.content}</p>
+                        <p><i>${data.date.toLocaleString()}</i></p>
+                    </div>
+                `)
+                break
+        }
+    }
+    if (mssvViewer == data.owner.mssv){
+        $(`div[name="${data._id}-title"]`).append(`
+            <div>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDelete" name="${data._id}" onclick="delete_post(this.name)">
+                    Delete
+                </button>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editContentModal" name="${data._id}" onclick="edit(this.name)">
+                    Edit
+                </button>
+            </div>
+            
+        `)
+    }
+}
+
 let loadMore = (localPageIndex) => {
     $.getJSON(`/posts/${localPageIndex}`, (posts) => {
         if (posts) {
             $.each(posts, (i, data) => {
-                let checkType
-                if (data.image){
-                    checkType = 'img'
-                }else if (data.video){
-                    checkType = 'video'
+                if (i==0){
+                    mssvViewer = data
                 }
                 else{
-                    checkType = 'text'
+                    let checkType
+                    if (data.image){
+                        checkType = 'img'
+                    }else if (data.video){
+                        checkType = 'video'
+                    }
+                    else{
+                        checkType = 'text'
+                    }
+                    addNewPost(data, checkType, true)
                 }
-                switch (checkType){
-                    case 'img':
-                        $('#infinite-scroll').append(`
-                            <div class="content m-3 p-3 bg-light bg-gradient" name="${data._id}">
-                                <h4>User: ${data.owner}</h4>
-                                <p name="${data._id}">${data.content}</p>
-                                <p><i>${data.date}</i></p>
-                                <image src="${data.image}"></image>
-                                <button class="btn btn-danger" id="${data._id}" onclick="delete_post(this.id)">Delete</button>
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editContentModal" name="${data._id}" onclick="edit(this.name)">
-                                    Edit
-                                </button>
-                            </div>
-                        `)
-                        break
-                    case 'video':
-                        $('#infinite-scroll').append(`
-                            <div class="content m-3 p-3 bg-light bg-gradient" name="${data._id}">
-                                <h4>User: ${data.owner}</h4>
-                                <p name="${data._id}">${data.content}</p>
-                                <p><i>${data.date}</i></p>
-                                <div class="video-wrapper">
-                                    <iframe src="https://www.youtube.com/embed/${data.video}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                </div>
-                                <button class="btn btn-danger" id="${data._id}" onclick="delete_post(this.id)">Delete</button>
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editContentModal" name="${data._id}" onclick="edit(this.name)">
-                                    Edit
-                                </button>
-                            </div>
-                        `)
-                        break
-                    default:
-                        $('#infinite-scroll').append(`
-                            <div class="content m-3 p-3 bg-light bg-gradient" name="${data._id}">
-                                <h4>User: ${data.owner}</h4>
-                                <p name="${data._id}">${data.content}</p>
-                                <p><i>${data.date}</i></p>
-                                <button class="btn btn-danger" id="${data._id}" onclick="delete_post(this.id)">Delete</button>
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editContentModal" name="${data._id}" onclick="edit(this.name)">
-                                    Edit
-                                </button>
-                            </div>
-                        `)
-                        break
-
-                }
+                
             })
         }
         nextIndex++
@@ -87,80 +174,109 @@ function youtube_parser(url){
     return (match&&match[7].length==11)? match[7] : false;
 }
 
-$('#post-newsfeed').submit((e) => {
-    e.preventDefault()
-
-    let content = $('#content').val()
-    let dataUpload = new FormData($('#post-newsfeed')[0])
-    let video = youtube_parser($('#video').val())
-    let checkType
-    if ($('#image').val()){
-        checkType = 'img'
+$('#video').change(()=>{
+    let video = $('#video').val()
+    if (video!=''){
+        let videoId = youtube_parser($('#video').val())
+        if (!videoId){
+            $('#video').addClass('is-invalid')
+        }
+        else{
+            $('#video').removeClass('is-invalid')
+        }
     }
-    else if(video){
-        checkType = 'video'
+    else{
+        $('#video').removeClass('is-invalid')
     }
-    else {
-        checkType = 'plain'
+    if (video != ''){
+        $('#image-label').addClass('btn-warning')
+        $('#image').prop("disabled", true)
     }
-    
-    switch (checkType){
-        case 'img':
-            $.ajax({
-                type: "POST",
-                data: dataUpload,
-                url: "/postimage",
-                contentType: false,
-                processData: false,
-                success: function (data) {
-                    console.log(data)
-                    $('#content').val('')
-                    $('#image').val('')
-                },
-                error: function (data) {
-                    console.warn(data)
-                }
-            });
-            break;
-        case 'video':
-            $.post('postvideo', { content: content, video: video }, (data, status) => {
-                if (data) {
-                    console.log(`${data}`)
-                    $('#content').val('')
-                    $('video').val('')
-                }
-                else {
-                    console.warn(data)
-                }
-            })
-            break;
-        default:
-            $.post('post', { content: content }, (data, status) => {
-                if (data) {
-                    console.log(`${data}`)
-                    $('#content').val('')
-                }
-                else {
-                    console.warn(data)
-                }
-            })
+    else{
+        $('#image-label').removeClass('btn-warning')
+        $('#image').prop("disabled", false)
+    }
+})
+$('#image').change(()=>{
+    let image = $('#image').val()
+    if (image != ''){
+        $('#video').prop("disabled", true)
+    }
+    else{
+        $('#video').prop("disabled", false)
     }
 })
 
+$('#post-newsfeed').submit((e) => {
+    e.preventDefault()
+    let content = $('#content').val()
+
+    if (content == ''){
+        $("#alert").removeAttr('hidden')
+        $("#alert").fadeTo(2000, 500).slideUp(500, function(){
+            $("#alert").slideUp(500, ()=>{
+                $("#alert").attr('hidden')
+            });
+        });
+    }
+    else {
+        let dataUpload = new FormData($('#post-newsfeed')[0])
+        let video = youtube_parser($('#video').val())
+        let checkType
+        if ($('#image').val()){
+            checkType = 'img'
+        }
+        else if(video){
+            checkType = 'video'
+            dataUpload.set('video', video)
+        }
+        else {
+            checkType = 'plain'
+        }
+        dataUpload.append('type', checkType)
+    
+        $.ajax({
+            type: "POST",
+            data: dataUpload,
+            url: "/post",
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                $('#content').val('')
+                $('#image').val('')
+                $('#video').val('')
+                addNewPost(data, checkType, false)
+                $('#video').prop("disabled", false)
+                $('#image').prop("disabled", false)
+                $('#image-label').removeClass('btn-warning')
+                $('#video').removeClass('is-invalid')
+            },
+            error: function (data) {
+                console.warn(data)
+            }
+        })
+    }
+
+    
+})
+
+//Modal delete post
 function delete_post(id) {
+    $('#delete-btn').attr('name', id)
+}
+$('#delete-btn').click(() => {
+    let id = $('#delete-btn').attr('name')
     $.ajax({
         url: `/post/${id}`,
         type: 'DELETE',
         success: function (result) {
             $(`div[name="${id}"]`).remove()
+            $('#btn-close-modal-delete').click()
             console.log(result)
         }
     })
-}
-
-
+})
 //Modal edit post form
-
 function edit(id) {
     let content = $(`p[name=${id}]`).text()
     $('#content-update').val(content)
@@ -176,7 +292,7 @@ $('#edit-btn').click(() => {
         data: { content: contentUpdated },
         success: function (result) {
             $(`p[name=${id}]`).text(contentUpdated)
-            $('#btn-close-modal').click()
+            $('#btn-close-modal-edit').click()
             console.log(result)
         }
     })

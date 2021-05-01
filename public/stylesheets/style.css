@@ -407,3 +407,12 @@ img{
   border-radius: 5px;
   box-shadow: 2px 2px 5px -2px #000000;
 }
+a:link {
+  text-decoration: none;
+}
+textarea {
+  overflow:hidden;
+}
+input[type="file"] {
+  display: none;
+}

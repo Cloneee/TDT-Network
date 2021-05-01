@@ -2,8 +2,14 @@ const mongoose = require('mongoose')
 
 const PostSchema = mongoose.Schema({
     owner: {
-        type: String,
-        required: true
+        fullname: {
+            type: String,
+            required: true
+        },
+        mssv: {
+            type: String,
+            required: true
+        }
     },
     content: {
         type: String,
