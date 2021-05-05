@@ -90,43 +90,6 @@
 
 /*End 404 page*/
 
-/* Google button styling */
-
-.google-btn {
-    width: 184px;
-    height: 42px;
-    background-color: #4285F4;
-    border-radius: 2px;
-    box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .25);
-}
-
-.google-icon-wrapper {
-    position: absolute;
-    margin-top: 1px;
-    margin-left: 1px;
-    width: 40px;
-    height: 40px;
-    border-radius: 2px;
-    background-color: #FFFFFF;
-}
-
-.google-icon {
-    position: absolute;
-    margin-top: 11px;
-    margin-left: 11px;
-    width: 18px;
-    height: 18px;
-}
-
-.btn-text {
-    float: right;
-    margin: 11px 11px 0 0;
-    color: #FFFFFF;
-    font-size: 14px;
-    letter-spacing: 0.2px;
-    font-family: "Roboto";
-}
-
 /* Home page */
 html,
 body {
@@ -416,3 +379,116 @@ textarea {
 input[type="file"] {
   display: none;
 }
+/* register page*/
+
+.register-form{
+  height: auto;
+  width: 50%;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  margin-top:30px;
+  box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.5);
+  align-items:center;
+  display:flex;
+  flex-direction: column;
+  font-family: "roboto";
+
+}
+/* end register page*/
+
+
+/* student login page */
+.google-btn {
+  width: 184px;
+  height: 42px;
+  background-color: #4285F4;
+  border-radius: 25px;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .25);
+}
+
+.google-icon-wrapper {
+  position: absolute;
+  margin-top: 1px;
+  margin-left: 1px;
+  width: 40px;
+  height: 40px;
+  border-radius: 25px;
+  background-color: #FFFFFF;
+}
+
+.google-icon {
+  position: absolute;
+  margin-top: 11px;
+  margin-left: 11px;
+  width: 18px;
+  height: 18px;
+}
+
+.btn-text {
+  float: right;
+  margin: 11px 11px 0 0;
+  color: #FFFFFF;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  font-family: "roboto";
+}
+
+html,
+body {
+  height: 100%;
+  padding: 0;
+}
+
+.student-login-panel {
+  width: 20%;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  margin-top:30px;
+  box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.5);
+  align-items:center;
+  display:flex;
+  flex-direction: column;
+  font-family: "roboto";  
+}
+
+.login-text{
+  color:#0e4399;
+  font-family: "roboto";
+  margin-top:10px;
+  margin-bottom: 30px;
+}
+/* end student login page*/
+
+/* admin login page*/
+.admin-login-panel {
+  height: 72%;
+  width: 20%;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  margin-top:30px;
+  box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.5);
+  align-items:center;
+  display:flex;
+  flex-direction: column;
+  font-family: "roboto";  
+}
+
+.admin-login-btn{
+  align-items:center;
+  background-color: #4285F4;
+  color: #ffffff;
+  line-height:40px;
+  border: none;
+  border-radius: 6px;
+}
+
+.admin-login-btn:hover{
+  background-color: #1c67e0;
+}
+/* end admin login page*/

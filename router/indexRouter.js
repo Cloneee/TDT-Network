@@ -27,6 +27,15 @@ Router.get('/profile/:mssv', (req, res) => {
       }
    })
 })
+Router.get('/profile/:mssv/edit', (req,res)=>{
+   let mssv = req.params.mssv
+   if (res.locals.user.mssv == mssv){
+      res.render()
+   }
+   else{
+       res.redirect(`/profile/${mssv}`);
+   }
+})
 Router.get('/profile/:mssv/posts', (req, res) => {
    let mssv = req.params.mssv
    postModel.find({ owner: mssv }).sort({ date: -1 }).exec((err, posts) => {

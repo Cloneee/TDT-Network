@@ -11,7 +11,7 @@ const jwt = require('jsonwebtoken')
 const { requireAdminAuth, checkAdmin, isLogged } = require('../middleware/authMiddleware')
 
 Router.use('*', checkAdmin)
-Router.get('/', requireAdminAuth, (req, res) => {
+Router.get('/',requireAdminAuth, (req, res) => {
   res.render('views/admin-panel.ejs');
 })
 Router.get('/login', isLogged, (req, res) => {
@@ -75,7 +75,6 @@ Router.get('/register',requireAdminAuth, (req,res)=>{
   res.render('views/register')
 })
 Router.post('/register', registerValidator, (req, res) => {
-  console.log(req.body.faculty)
   let result = validationResult(req);
   if (result.errors.length === 0) {
     let { username, password, email, fullname, avatar, role, faculty } = req.body;
@@ -102,10 +101,7 @@ Router.post('/register', registerValidator, (req, res) => {
             return user.save();
           })
           .then(() => {
-            return res.status(201).json({
-              code: 0,
-              message: "Đăng ký thành công",
-            });
+            return res.redirect('/admin/register', {msg: 'Đăng kí thành công'});
           });
       }
     });

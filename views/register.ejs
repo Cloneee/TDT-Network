@@ -12,201 +12,173 @@
         crossorigin="anonymous"></script>
     <title>Admin panel</title>
     <link rel="stylesheet" href="/public/stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:500" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <nav class="nav bg-light sticky-top nav-bar mb-2">
-        <div class="container-fluid d-flex justify-content-around" id="img-nav">
-
-            <img src="../public/logo.png" alt="logo">
-            <div>
-                <a href="/">
-                    <h1><i class="bi bi-house"></i></h1>
-                </a>
-            </div>
-            <div>
-                <a href="#">
-                    <h1><i class="bi bi-newspaper"></i></h1>
-                </a>
-            </div>
-            <div>
-                <a href="#">
-                    <h1><i class="bi bi-calendar-date"></i></h1>
-                </a>
-            </div>
-            <div>
-                <a href="/profile/<%= locals.admin.username %> ">
-                    <h1><i class="bi bi-person-circle"></i></h1>
-                </a>
-            </div>
+    <div class="container d-flex flex-column justify-content-center align-items-center">
+        <div>
+            <img src="/public/brand.png" alt="TDT logo" >
         </div>
-    </nav>
-    <div class="container">
-        <form method="post" action="/admin/register">
-            <div class="row g-3">
-                <div class="col-6">
-                    <label for="username" class="form-label">Username</label>
+        <div class="register-form">
+            <h1 class="login-text"> Register</h1>
+            <form method="post" action="/admin/register">
+                <div class="form-group">
+                    <label for="username" class="">Username</label>
                     <input type="text" id="username" class="form-control" name="username">
                 </div>
-                <div class="col-6">
-                    <label for="password" class="form-label">Password</label>
+                <div class="form-group">
+                    <label for="password" class="">Password</label>
                     <input type="password" id="password" class="form-control" name="password">
                 </div>
-                <div class="col-12">
-                    <label for="fullname" class="form-label">Fullname</label>
+                <div class="form-group">
+                    <label for="fullname" class="">Fullname</label>
                     <input type="text" id="fullname" class="form-control" name="fullname">
-                
                 </div>
-                <div class="col-12 mt-3">
-                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse"
-                        aria-expanded="false" aria-controls="collapse">Select Faculty</button>
-                    
-                        <div id="collapse" class="collapse mt-3">
-                        <div class=" d-flex flex-wrap justify-content-start">
-                            <div class="form-check mx-2">
-                                <input class="form-check-input" type="checkbox" value="CTHSSV" id="CTHSSV" name="faculty">
-                                <label class="form-check-label" for="CTHSSV">
-                                    Phòng Công tác học sinh sinh viên
-                                </label>
-                            </div>
-                            <div class="form-check mx-2">
-                                <input class="form-check-input" type="checkbox" value="DH" id="DH" name="faculty">
-                                <label class="form-check-label" for="DH">
-                                    Phòng Đại học
-                                </label>
-                            </div>
-                            <div class="form-check mx-2">
-                                <input class="form-check-input" type="checkbox" value="SDH" id="SDH" name="faculty">
-                                <label class="form-check-label" for="SDH">
-                                    Phòng Sau Đại Học
-                                </label>
-                            </div>
-                            <div class="form-check mx-2">
-                                <input class="form-check-input" type="checkbox" value="DTMT" id="DTMT" name="faculty">
-                                <label class="form-check-label" for="DTMT">
-                                    Phòng Điện Toán Và Máy Tính
-                                </label>
-                            </div>
-                            <div class="form-check mx-2">
-                                <input class="form-check-input" type="checkbox" value="KTKDCL" id="KTKDCL" name="faculty">
-                                <label class="form-check-label" for="KTKDCL">
-                                    Phòng Khảo Thí Và Kiểm Định Chất Lượng
-                                </label>
-                            </div>
-                            <div class="form-check mx-2">
-                                <input class="form-check-input" type="checkbox" value="TC" id="TC" name="faculty">
-                                <label class="form-check-label" for="TC">
-                                    Phòng Tài Chính
-                                </label>
-                            </div>
-                            <div class="form-check mx-2">
-                                <input class="form-check-input" type="checkbox" value="CLC" id="CLC" name="faculty">
-                                <label class="form-check-label" for="CLC">
-                                    TDT Creative Language Center
-                                </label>
-                            </div>
-                            <div class="form-check mx-2">
-                                <input class="form-check-input" type="checkbox" value="TTTC" id="TTTC" name="faculty">
-                                <label class="form-check-label" for="TTTC">
-                                    Trung Tâm Tin Học
-                                </label>
-                            </div>
-                            <div class="form-check mx-2">
-                                <input class="form-check-input" type="checkbox" value="SDTC" id="SDTC" name="faculty">
-                                <label class="form-check-label" for="SDTC">
-                                    Trung Tâm Đào Tạo Phát Triển Xã Hội 
-                                </label>
-                            </div>
-                            <div class="form-check mx-2">
-                                <input class="form-check-input" type="checkbox" value="ATEM" id="ATEM" name="faculty">
-                                <label class="form-check-label" for="ATEM">
-                                    Trung tâm phát triển Khoa học quản lý và Ứng dụng công nghệ 
-                                </label>
-                            </div>
-                            <div class="form-check mx-2">
-                                <input class="form-check-input" type="checkbox" value="HTDNCSV" id="HTDNCSV" name="faculty">
-                                <label class="form-check-label" for="HTDNCSV">
-                                    Trung tâm hợp tác doanh nghiệp và cựu sinh viên 
-                                </label>
-                            </div>
-                            <div class="form-check mx-2">
-                                <input class="form-check-input" type="checkbox" value="KL" id="KL" name="faculty">
-                                <label class="form-check-label" for="KL">
-                                    Khoa Luật 
-                                </label>
-                            </div>
-                            <div class="form-check mx-2">
-                                <input class="form-check-input" type="checkbox" value="NNTH" id="NNTH" name="faculty">
-                                <label class="form-check-label" for="NNTH">
-                                    Trung tâm ngoại ngữ-tin học –bồi dưỡng văn hóa
-                                </label>
-                            </div>
-                            <div class="form-check mx-2">
-                                <input class="form-check-input" type="checkbox" value="VCSKTKD" id="VCSKTKD" name="faculty">
-                                <label class="form-check-label" for="VCSKTKD">
-                                    Viện chính sách kinh tế và kinh doanh 
-                                </label>
-                            </div>
-                            <div class="form-check mx-2">
-                                <input class="form-check-input" type="checkbox" value="KMTCN" id="KMTCN" name="faculty">
-                                <label class="form-check-label" for="KMTCN">
-                                    Khoa Mỹ thuật công nghiệp 
-                                </label>
-                            </div>
-                            <div class="form-check mx-2">
-                                <input class="form-check-input" type="checkbox" value="KDDT" id="KDDT" name="faculty">
-                                <label class="form-check-label" for="KDDT">
-                                    Khoa Điện – Điện tử 
-                                </label>
-                            </div>
-                            <div class="form-check mx-2">
-                                <input class="form-check-input" type="checkbox" value="KCNTT" id="KCNTT" name="faculty">
-                                <label class="form-check-label" for="KCNTT">
-                                    Khoa Công nghệ thông tin 
-                                </label>
-                            </div>
-                            <div class="form-check mx-2">
-                                <input class="form-check-input" type="checkbox" value="KQTKD" id="KQTKD" name="faculty">
-                                <label class="form-check-label" for="KQTKD">
-                                    Khoa Quản trị kinh doanh 
-                                </label>
-                            </div>
-                            <div class="form-check mx-2">
-                                <input class="form-check-input" type="checkbox" value="KMTBHLD" id="KMTBHLD" name="faculty">
-                                <label class="form-check-label" for="KMTBHLD">
-                                    Khoa Môi trường và bảo hộ lao động 
-                                </label>
-                            </div>
-                            <div class="form-check mx-2">
-                                <input class="form-check-input" type="checkbox" value="KLDCD" id="KLDCD" name="faculty">
-                                <label class="form-check-label" for="KLDCD">
-                                    Khoa Lao động công đoàn 
-                                </label>
-                            </div>
-                            <div class="form-check mx-2">
-                                <input class="form-check-input" type="checkbox" value="KTCNH" id="KTCNH" name="faculty">
-                                <label class="form-check-label" for="KTCNH">
-                                    Khoa Tài chính ngân hàng 
-                                </label>
-                            </div>
-                            <div class="form-check mx-2">
-                                <input class="form-check-input" type="checkbox" value="KGDQT" id="KGDQT" name="faculty">
-                                <label class="form-check-label" for="KGDQT">
-                                    Khoa giáo dục quốc tế 
-                                </label>
-                            </div>
-                        </div>
-    
+                <button class="admin-login-btn mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapse" aria-expanded="false" aria-controls="collapse">Select Faculty</button>
+        
+                <div id="collapse" class="collapse">
+                    <div class="form-check mx-2">
+                        <input class="form-check-input" type="checkbox" value="CTHSSV" id="CTHSSV" name="faculty">
+                        <label class="form-check-label" for="CTHSSV">
+                            Phòng Công tác học sinh sinh viên
+                        </label>
+                    </div>
+                    <div class="form-check mx-2">
+                        <input class="form-check-input" type="checkbox" value="DH" id="DH" name="faculty">
+                        <label class="form-check-label" for="DH">
+                            Phòng Đại học
+                        </label>
+                    </div>
+                    <div class="form-check mx-2">
+                        <input class="form-check-input" type="checkbox" value="SDH" id="SDH" name="faculty">
+                        <label class="form-check-label" for="SDH">
+                            Phòng Sau Đại Học
+                        </label>
+                    </div>
+                    <div class="form-check mx-2">
+                        <input class="form-check-input" type="checkbox" value="DTMT" id="DTMT" name="faculty">
+                        <label class="form-check-label" for="DTMT">
+                            Phòng Điện Toán Và Máy Tính
+                        </label>
+                    </div>
+                    <div class="form-check mx-2">
+                        <input class="form-check-input" type="checkbox" value="KTKDCL" id="KTKDCL" name="faculty">
+                        <label class="form-check-label" for="KTKDCL">
+                            Phòng Khảo Thí Và Kiểm Định Chất Lượng
+                        </label>
+                    </div>
+                    <div class="form-check mx-2">
+                        <input class="form-check-input" type="checkbox" value="TC" id="TC" name="faculty">
+                        <label class="form-check-label" for="TC">
+                            Phòng Tài Chính
+                        </label>
+                    </div>
+                    <div class="form-check mx-2">
+                        <input class="form-check-input" type="checkbox" value="CLC" id="CLC" name="faculty">
+                        <label class="form-check-label" for="CLC">
+                            TDT Creative Language Center
+                        </label>
+                    </div>
+                    <div class="form-check mx-2">
+                        <input class="form-check-input" type="checkbox" value="TTTC" id="TTTC" name="faculty">
+                        <label class="form-check-label" for="TTTC">
+                            Trung Tâm Tin Học
+                        </label>
+                    </div>
+                    <div class="form-check mx-2">
+                        <input class="form-check-input" type="checkbox" value="SDTC" id="SDTC" name="faculty">
+                        <label class="form-check-label" for="SDTC">
+                            Trung Tâm Đào Tạo Phát Triển Xã Hội 
+                        </label>
+                    </div>
+                    <div class="form-check mx-2">
+                        <input class="form-check-input" type="checkbox" value="ATEM" id="ATEM" name="faculty">
+                        <label class="form-check-label" for="ATEM">
+                            Trung tâm phát triển Khoa học quản lý và Ứng dụng công nghệ 
+                        </label>
+                    </div>
+                    <div class="form-check mx-2">
+                        <input class="form-check-input" type="checkbox" value="HTDNCSV" id="HTDNCSV" name="faculty">
+                        <label class="form-check-label" for="HTDNCSV">
+                            Trung tâm hợp tác doanh nghiệp và cựu sinh viên 
+                        </label>
+                    </div>
+                    <div class="form-check mx-2">
+                        <input class="form-check-input" type="checkbox" value="KL" id="KL" name="faculty">
+                        <label class="form-check-label" for="KL">
+                            Khoa Luật 
+                        </label>
+                    </div>
+                    <div class="form-check mx-2">
+                        <input class="form-check-input" type="checkbox" value="NNTH" id="NNTH" name="faculty">
+                        <label class="form-check-label" for="NNTH">
+                            Trung tâm ngoại ngữ-tin học –bồi dưỡng văn hóa
+                        </label>
+                    </div>
+                    <div class="form-check mx-2">
+                        <input class="form-check-input" type="checkbox" value="VCSKTKD" id="VCSKTKD" name="faculty">
+                        <label class="form-check-label" for="VCSKTKD">
+                            Viện chính sách kinh tế và kinh doanh 
+                        </label>
+                    </div>
+                    <div class="form-check mx-2">
+                        <input class="form-check-input" type="checkbox" value="KMTCN" id="KMTCN" name="faculty">
+                        <label class="form-check-label" for="KMTCN">
+                            Khoa Mỹ thuật công nghiệp 
+                        </label>
+                    </div>
+                    <div class="form-check mx-2">
+                        <input class="form-check-input" type="checkbox" value="KDDT" id="KDDT" name="faculty">
+                        <label class="form-check-label" for="KDDT">
+                            Khoa Điện – Điện tử 
+                        </label>
+                    </div>
+                    <div class="form-check mx-2">
+                        <input class="form-check-input" type="checkbox" value="KCNTT" id="KCNTT" name="faculty">
+                        <label class="form-check-label" for="KCNTT">
+                            Khoa Công nghệ thông tin 
+                        </label>
+                    </div>
+                    <div class="form-check mx-2">
+                        <input class="form-check-input" type="checkbox" value="KQTKD" id="KQTKD" name="faculty">
+                        <label class="form-check-label" for="KQTKD">
+                            Khoa Quản trị kinh doanh 
+                        </label>
+                    </div>
+                    <div class="form-check mx-2">
+                        <input class="form-check-input" type="checkbox" value="KMTBHLD" id="KMTBHLD" name="faculty">
+                        <label class="form-check-label" for="KMTBHLD">
+                            Khoa Môi trường và bảo hộ lao động 
+                        </label>
+                    </div>
+                    <div class="form-check mx-2">
+                        <input class="form-check-input" type="checkbox" value="KLDCD" id="KLDCD" name="faculty">
+                        <label class="form-check-label" for="KLDCD">
+                            Khoa Lao động công đoàn 
+                        </label>
+                    </div>
+                    <div class="form-check mx-2">
+                        <input class="form-check-input" type="checkbox" value="KTCNH" id="KTCNH" name="faculty">
+                        <label class="form-check-label" for="KTCNH">
+                            Khoa Tài chính ngân hàng 
+                        </label>
+                    </div>
+                    <div class="form-check mx-2">
+                        <input class="form-check-input" type="checkbox" value="KGDQT" id="KGDQT" name="faculty">
+                        <label class="form-check-label" for="KGDQT">
+                            Khoa giáo dục quốc tế 
+                        </label>
                     </div>
                 </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary mt-3">Register</button>
-        </form>
+                <div>
+                    <button type="submit" class="admin-login-btn my-3">Register</button>
+                </div>
+            </form>
+        </div>
     </div>
-
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
