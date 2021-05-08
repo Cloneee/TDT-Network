@@ -125,7 +125,6 @@ function addNewPost(data, checkType, isAppending){
                     <i class="bi bi-gear-fill"></i>
                 </button>
             </div>
-            
         `)
     }
 }
@@ -326,3 +325,17 @@ $('#edit-btn').click(() => {
         }
     })
 })
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#blah')
+                .attr('src', e.target.result)
+                .attr('hidden', false)
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}

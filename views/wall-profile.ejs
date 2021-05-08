@@ -56,14 +56,14 @@
     <div class="container">
 
         <div class="d-flex justify-content-center">
-            <div class="avatar d-flex flex-column justify-content-center align-items-center">
-                <img src="<%= locals.sinhvien.avatar %> " alt="avatar" id="avatar">
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <img src="/<%= locals.sinhvien.avatar %> " alt="avatar" class="avatar">
                 <% if (locals.sinhvien != null) {%> <h3>
                     <%= locals.sinhvien.fullname %>
                 </h3>
                 <% } %> 
                 <% if (locals.sinhvien.mssv == locals.user.mssv) {%> 
-                    <a href="#" id="edit-profile">
+                    <a href="<%= locals.user.mssv %>/edit " id="edit-profile">
                         <p> <i class="fa fa-pencil"> </i> Edit profile</p>
                     </a>
                 <% } %> 

@@ -297,12 +297,11 @@ img{
   padding: auto;
   color: #0874c7;
 }
-#avatar{
+.avatar{
   height: 100px;
   width: 100px;
   object-fit:cover;
   border-radius: 70%;
-
 }
 #img-nav{
   height: 100%;

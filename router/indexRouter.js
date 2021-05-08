@@ -4,6 +4,7 @@ const { requireAuth, isLogged } = require('../middleware/authMiddleware')
 const { upload } = require('../middleware/upload')
 const postModel = require('../models/Post.model')
 const sinhvienModel = require('../models/Sinhvien.model')
+const facultyModel = require('../models/Faculty.model')
 const fs = require('fs')
 
 Router.get('/', requireAuth, (req, res) => {
@@ -30,14 +31,41 @@ Router.get('/profile/:mssv', (req, res) => {
       }
    })
 })
-Router.get('/profile/:mssv/edit', (req,res)=>{
+Router.get('/profile/:mssv/edit', async (req,res)=>{
    let mssv = req.params.mssv
    if (res.locals.user.mssv == mssv){
+      let faculties = await facultyModel.find({name: { $regex: 'Khoa' }, id: {$ne: 'TTTPKHQLUDCN'}})
+      res.locals.faculties = faculties
       res.render('views/edit-profile-sv.ejs')
    }
    else{
-       res.redirect(`/profile/${mssv}`);
+       res.redirect(`/profile/${mssv}`)
    }
+})
+Router.post('/profile/:mssv/edit', upload.single('image'), async (req,res)=>{
+   let mssv = req.params.mssv
+   let updateData = req.body
+   let user = await sinhvienModel.findOne({mssv: mssv})
+   if (req.file != undefined){
+      updateData.avatar = req.file.path
+      fs.unlink(user.avatar, (err) => {
+         if (err) {
+           console.error(err)
+           return
+         }
+       
+         //file removed
+       })
+   }
+   sinhvienModel.findOneAndUpdate({mssv: mssv}, updateData, {new: true, upsert:true}, (err,doc)=>{
+      if (err){
+         console.log('err')
+         res.send(err)
+      }
+      else{
+         res.redirect(`/profile/${mssv}/edit`)
+      }
+   })
 })
 Router.get('/profile/:mssv/posts', (req, res) => {
    let mssv = req.params.mssv
