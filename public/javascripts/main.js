@@ -182,8 +182,13 @@ let loadMore = (localPageIndex) => {
     }
 }
 $(document).ready(() => {
-    loadMore(pageIndex)
-    pageIndex++
+    if (window.location.href.indexOf("admin") > -1){
+        return
+    }
+    else{
+        loadMore(pageIndex)
+        pageIndex++
+    }
 })
 
 $(document).scroll(() => {

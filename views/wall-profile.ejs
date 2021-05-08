@@ -57,7 +57,11 @@
 
         <div class="d-flex justify-content-center">
             <div class="d-flex flex-column justify-content-center align-items-center">
-                <img src="/<%= locals.sinhvien.avatar %> " alt="avatar" class="avatar">
+                <% if (locals.user.avatar.includes('https')) {%> 
+                        <img src="<%= locals.user.avatar %> " alt="update-avatar" id="update-avatar" class="avatar">
+                    <% } else { %> 
+                        <img src="/<%= locals.user.avatar %> " alt="update-avatar" id="update-avatar" class="avatar">
+                    <% } %>
                 <% if (locals.sinhvien != null) {%> <h3>
                     <%= locals.sinhvien.fullname %>
                 </h3>

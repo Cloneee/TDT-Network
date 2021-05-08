@@ -19,7 +19,7 @@ const AccountSchema = mongoose.Schema({
     },
     avatar:{
         type: String,
-        default: '/public/new_user.jpg'
+        default: 'public/new_user.jpg'
     },
     role: {
         type: String,
@@ -28,7 +28,11 @@ const AccountSchema = mongoose.Schema({
     },
     faculty:[{
         type: String
-    }]
+    }],
+    new:{
+        type: Boolean,
+        default: true
+    }
 })
 
 module.exports = mongoose.model('Account', AccountSchema)

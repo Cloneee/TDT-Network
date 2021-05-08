@@ -2,11 +2,13 @@ const express = require('express')
 const Router = express.Router()
 
 const { validationResult } = require('express-validator')
+const { upload } = require('../middleware/upload')
 const accountModel = require('../models/Account.model')
 const loginValidator = require('./validators/loginValidator')
 const registerValidator = require("./validators/registerValidator");
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const fs = require('fs')
 
 const { requireAdminAuth, checkAdmin, isLogged } = require('../middleware/authMiddleware')
 
@@ -17,12 +19,14 @@ Router.get('/',requireAdminAuth, (req, res) => {
 Router.get('/login', isLogged, (req, res) => {
   res.render('views/admin-login')
 })
-Router.post("/login", loginValidator, (req, res) => {
+Router.post('/login', loginValidator, (req, res) => {
   let result = validationResult(req);
   if (result.errors.length === 0) {
     let { username, password } = req.body;
     accountModel.findOne({ username: username }, (err, user) => {
-      if (err) res.status(400).json({ message: err });
+      if (err){
+        console.log(err)
+      }
       if (user) {
         bcrypt.compare(password, user.password, (err, isMatched) => {
           if (err) {
@@ -36,12 +40,17 @@ Router.post("/login", loginValidator, (req, res) => {
               },
               process.env.JWT_SECRET,
               {
-                expiresIn: "1h",
+                expiresIn: "24h",
               },
               (err, token) => {
                 if (err) throw err;
                 res.cookie('jwt', token, { maxAge: 900000, httpOnly: true })
-                  .redirect('/admin')
+                if (user.new){
+                  res.redirect(`profile/${user.username}/edit`)
+                }
+                else(
+                  res.redirect('/')
+                )
               }
             );
           } else {
@@ -97,11 +106,11 @@ Router.post('/register', registerValidator, (req, res) => {
               avatar: avatar,
               roll: role,
               faculty: faculty
-            });
+            })
             return user.save();
           })
           .then(() => {
-            return res.redirect('/admin/register', {msg: 'Đăng kí thành công'});
+            return res.redirect('/admin/register');
           });
       }
     });
@@ -117,6 +126,23 @@ Router.post('/register', registerValidator, (req, res) => {
       message: message,
     });
   }
-});
+})
+Router.get('/profile/:username/edit', (req,res)=>{
+  res.render('views/edit-profile-admin')
+})
+Router.post('/profile/:username/edit',upload.single('image'), (req,res)=>{
+  let username = req.params.username
+  let updateData = req.body
+  if(req.file!=undefined){
+    updateData.avatar = req.file.path
+  }
+  updateData.new = false
+  accountModel.findOneAndUpdate({username: username}, updateData, {new: true}, (err,doc)=>{
+    if (err){
+      console.log(err)
+    }
+     res.redirect(`/admin/profile/${username}/edit`);
+  })
+})
 
 module.exports = Router
