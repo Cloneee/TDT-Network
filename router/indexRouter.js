@@ -33,7 +33,7 @@ Router.get('/profile/:mssv', (req, res) => {
 Router.get('/profile/:mssv/edit', (req,res)=>{
    let mssv = req.params.mssv
    if (res.locals.user.mssv == mssv){
-      res.render()
+      res.render('views/edit-profile-sv.ejs')
    }
    else{
        res.redirect(`/profile/${mssv}`);
@@ -149,7 +149,6 @@ Router.post('/post',upload.single('image'), (req, res) => {
       res.status(400).send(`Please enter your caption`)
    }
 })
-
 Router.delete('/post/:id', (req, res) => {
    let id = req.params.id
    postModel.findById(id).exec((err, post) => {
@@ -201,4 +200,5 @@ Router.put('/post/:id', (req, res) => {
       }
    })
 })
+
 module.exports = Router

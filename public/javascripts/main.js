@@ -119,10 +119,10 @@ function addNewPost(data, checkType, isAppending){
         $(`div[name="${data._id}-title"]`).append(`
             <div>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDelete" name="${data._id}" onclick="delete_post(this.name)">
-                    Delete
+                    <i class="bi bi-trash-fill"></i>
                 </button>
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editContentModal" name="${data._id}" onclick="edit(this.name)">
-                    Edit
+                    <i class="bi bi-gear-fill"></i>
                 </button>
             </div>
             
