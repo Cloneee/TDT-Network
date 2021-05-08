@@ -312,8 +312,7 @@ img{
 }
 
 .notiboard{
-  height: 500px;
-  
+  min-height: 500px;
 }
 .noti{
   background-color: #c0c1c2;

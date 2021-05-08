@@ -6,7 +6,9 @@ let mssvViewer
 
 var textarea = document.querySelector('textarea');
 
-textarea.addEventListener('keydown', autosize);
+if (textarea){
+    textarea.addEventListener('keydown', autosize);
+}
              
 function autosize(){
   var el = this;
@@ -30,7 +32,7 @@ function addNewPost(data, checkType, isAppending){
                             </a>
                         </div>
                         <p name="${data._id}" class="text-break p-3" >${data.content}</p>
-                        <image src="${data.image}"></image>
+                        <image src="/${data.image}"></image>
                         <p><i>${data.date.toLocaleString()}</i></p>
                     </div>
                 `)
@@ -77,7 +79,7 @@ function addNewPost(data, checkType, isAppending){
                             </a>
                         </div>
                         <p name="${data._id}" class="text-break p-3" >${data.content}</p>
-                        <image src="${data.image}"></image>
+                        <image src="/${data.image}"></image>
                         <p><i>${data.date.toLocaleString()}</i></p>
                     </div>
                 `)
@@ -129,29 +131,56 @@ function addNewPost(data, checkType, isAppending){
 }
 
 let loadMore = (localPageIndex) => {
-    $.getJSON(`/posts/${localPageIndex}`, (posts) => {
-        if (posts) {
-            $.each(posts, (i, data) => {
-                if (i==0){
-                    mssvViewer = data
-                }
-                else{
-                    let checkType
-                    if (data.image){
-                        checkType = 'img'
-                    }else if (data.video){
-                        checkType = 'video'
+    let path = window.location.pathname
+    if (path.includes('profile')){
+        let mssv = path.split('/')[2]
+        $.getJSON(`/posts/${localPageIndex}/${mssv}`, (posts) => {
+            if (posts) {
+                $.each(posts, (i, data) => {
+                    if (i==0){
+                        mssvViewer = data
                     }
                     else{
-                        checkType = 'text'
+                        let checkType
+                        if (data.image){
+                            checkType = 'img'
+                        }else if (data.video){
+                            checkType = 'video'
+                        }
+                        else{
+                            checkType = 'text'
+                        }
+                        addNewPost(data, checkType, true)
                     }
-                    addNewPost(data, checkType, true)
-                }
-                
-            })
-        }
-        nextIndex++
-    })
+                })
+            }
+            nextIndex++
+        })
+    }
+    else{
+        $.getJSON(`/posts/${localPageIndex}`, (posts) => {
+            if (posts) {
+                $.each(posts, (i, data) => {
+                    if (i==0){
+                        mssvViewer = data
+                    }
+                    else{
+                        let checkType
+                        if (data.image){
+                            checkType = 'img'
+                        }else if (data.video){
+                            checkType = 'video'
+                        }
+                        else{
+                            checkType = 'text'
+                        }
+                        addNewPost(data, checkType, true)
+                    }
+                })
+            }
+            nextIndex++
+        })
+    }
 }
 $(document).ready(() => {
     loadMore(pageIndex)

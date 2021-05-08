@@ -22,6 +22,9 @@ Router.get('/profile/:mssv', (req, res) => {
          res.status(404).render('views/404.ejs')
       }
       else {
+         if (sinhvien == null){
+            res.redirect('/404')
+         }
          res.locals.sinhvien = sinhvien
          res.render('views/wall-profile')
       }
@@ -47,7 +50,7 @@ Router.get('/profile/:mssv/posts', (req, res) => {
       }
    })
 })
-Router.get('/posts/:pageIndex', (req, res) => {
+Router.get('/posts/:pageIndex', (req, res) => {//Load post on newsfeed
    let pageIndex = parseInt(req.params.pageIndex)
    postModel.countDocuments({})
       .then(postsCount => {
@@ -64,6 +67,41 @@ Router.get('/posts/:pageIndex', (req, res) => {
          }
          else if (postsCount - pageIndex * 10 > 0) {
             postModel.find({}).sort({ date: -1 }).limit(postsCount - pageIndex * 10).skip(pageIndex * 10).exec((err, posts) => {
+               if (err) {
+                  res.send(err)
+               }
+               else {
+                  posts.unshift(res.locals.user.mssv)
+                  res.json(posts)
+               }
+            })
+         }
+         else {
+            res.send('End')
+         }
+      })
+      .catch(err => {
+         res.send(err)
+      })
+})
+Router.get('/posts/:pageIndex/:mssv', (req, res) => { //load posts on wall
+   let mssv = req.params.mssv
+   let pageIndex = parseInt(req.params.pageIndex)
+   postModel.countDocuments({"owner.mssv":mssv})
+      .then(postsCount => {
+         if (postsCount - pageIndex * 10 >= 10) {
+            postModel.find({"owner.mssv":mssv}).sort({ date: -1 }).limit(10).skip(pageIndex * 10).exec((err, posts) => {
+               if (err) {
+                  res.send(err)
+               }
+               else {
+                  posts.unshift(res.locals.user.mssv)
+                  res.json(posts)
+               }
+            })
+         }
+         else if (postsCount - pageIndex * 10 > 0) {
+            postModel.find({"owner.mssv":mssv}).sort({ date: -1 }).limit(postsCount - pageIndex * 10).skip(pageIndex * 10).exec((err, posts) => {
                if (err) {
                   res.send(err)
                }
@@ -163,5 +201,4 @@ Router.put('/post/:id', (req, res) => {
       }
    })
 })
-
 module.exports = Router
