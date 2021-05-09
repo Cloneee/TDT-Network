@@ -49,22 +49,16 @@ Router.post('/login', loginValidator, (req, res) => {
                   res.redirect(`profile/${user.username}/edit`)
                 }
                 else(
-                  res.redirect('/')
+                  res.redirect('/') 
                 )
               }
             );
           } else {
-            return res.status(401).json({
-              code: 2,
-              message: "Mật khẩu không trùng khớp",
-            });
+            return res.render('views/admin-login', {code: 2, msg: "Mật khẩu không trùng khớp"}) 
           }
         });
       } else {
-        return res.status(401).json({
-          code: 2,
-          message: "Không tìm thấy người dùng",
-        });
+        return  res.render('views/admin-login', {code: 2, msg: "Không tìm thấy người dùng"}) 
       }
     });
   } else {
@@ -142,6 +136,35 @@ Router.post('/profile/:username/edit',upload.single('image'), (req,res)=>{
       console.log(err)
     }
      res.redirect(`/admin/profile/${username}/edit`);
+  })
+})
+Router.get('/profile/:username/password', (req,res)=>{
+  res.render('views/change-password-admin')
+})
+Router.post('/profile/:username/password', async (req,res)=>{
+  let username = req.params.username
+  let oPass = req.body.password
+  let nPass = req.body.newPassword
+  let user = await accountModel.findOne({username: username})
+  bcrypt.compare(oPass, user.password, (err, isMatched)=>{
+    if (err) {
+      console.log(err)
+    }
+    else if (isMatched){
+      bcrypt.hash(nPass, 10, (err,hash)=>{
+        if (err){
+          console.log(err)
+        }
+        else{
+          user.password = hash
+          user.save()
+          res.render('views/change-password-admin', {msg: 'Success change password', code: 0})
+        }
+      })
+    }
+    else{
+      res.render('views/change-password-admin', {msg: 'Wrong Password', code:1})
+    }
   })
 })
 
