@@ -43,14 +43,15 @@
                     <label for="email" >Email</label>
                     <input type="email" id="email" class="form-control" name="email" value="<%= locals.admin.email %> " required>
                 </div>
+                <a href="/admin/profile/<%= locals.admin.username %>/password">
+                    <button type="button" class="admin-login-btn mt-3">Change Password</button>
+                </a>
                 <div>
                     <button type="submit" class="admin-login-btn my-3">Update</button>
                 </div>
             </form>
         </div>
     </div>
-
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="/public/javascripts/main.js"></script>
