@@ -32,7 +32,7 @@
                 </a>
             </div>
             <div>
-                <a href="#">
+                <a href="/noti">
                     <h1><i class="bi bi-newspaper"></i></h1>
                 </a>
             </div>
@@ -54,13 +54,12 @@
         </div>
     </nav>
     <div class="container">
-
         <div class="d-flex justify-content-center">
             <div class="d-flex flex-column justify-content-center align-items-center">
-                <% if (locals.user.avatar.includes('https')) {%> 
-                        <img src="<%= locals.user.avatar %> " alt="update-avatar" id="update-avatar" class="avatar">
+                <% if (locals.sinhvien.avatar.includes('https')) {%> 
+                        <img src="<%= locals.sinhvien.avatar %> " alt="update-avatar" id="update-avatar" class="avatar">
                     <% } else { %> 
-                        <img src="/<%= locals.user.avatar %> " alt="update-avatar" id="update-avatar" class="avatar">
+                        <img src="/<%= locals.sinhvien.avatar %> " alt="update-avatar" id="update-avatar" class="avatar">
                     <% } %>
                 <% if (locals.sinhvien != null) {%> <h3>
                     <%= locals.sinhvien.fullname %>
@@ -73,37 +72,15 @@
                 <% } %> 
             </div>
         </div>
-
         <div class="row">
             <!-- notification section -->
-            <div class="col-8 ">
+            <div class="container">
                 <div class="feed">
                     <div class="d-flex justify-content-center">
                         <h1>Bài đăng</h1>
                     </div>
-                    
                     <div id="infinite-scroll"></div>
-
                 </div>
-
-                <!-- calendar section? -->
-
-            </div>
-            <div class="col-4   ">
-                <h2> Thông báo mới </h2>
-                
-                
-                <hr style="height:2px;border-width:0;color:gray;background-color:gray">
-                <div class="noti p-2"> 
-                    <h5>Tên thông báo 1 </h5>
-                </div>
-                <div class="noti p-2"> 
-                    <h5> Tên thông báo 2</h5>
-                </div>
-                <div class="noti p-2"> 
-                   <h5> Tên thông báo 3</h5>
-                </div>
-                <a href="#" id="xemtatca"> Xem tất cả </a>
             </div>
         </div>
     </div>

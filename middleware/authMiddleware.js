@@ -53,12 +53,11 @@ const checkUser =  (req,res,next) =>{
     if (token){
         jwt.verify(token, process.env.JWT_SECRET, async (err,decodedToken)=>{
             if (err){
-                res.locals.user = null
                 next()
             }
             else{
                 let user = await sinhvientModel.findOne({mssv: decodedToken.mssv})
-                res.locals.user = user
+                res.locals.user = user || {mssv: 000}
                 next()
             }
         })

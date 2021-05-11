@@ -344,3 +344,13 @@ function readURL(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
+
+function nextPage(){
+    let selected = $('#page').prop("selectedIndex")
+    $('#page').prop("selectedIndex", selected+1).change()
+    
+}
+function prePage(){
+    let selected = $('#page').val()
+    $('#page').prop("selectedIndex", selected-1).change()
+}

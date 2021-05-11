@@ -4,6 +4,8 @@ const Router = express.Router()
 const { validationResult } = require('express-validator')
 const { upload } = require('../middleware/upload')
 const accountModel = require('../models/Account.model')
+const notiModel = require('../models/Notification.model')
+const facultyModel = require('../models/Faculty.model')
 const loginValidator = require('./validators/loginValidator')
 const registerValidator = require("./validators/registerValidator");
 const bcrypt = require('bcrypt')
@@ -13,8 +15,19 @@ const fs = require('fs')
 const { requireAdminAuth, checkAdmin, isLogged } = require('../middleware/authMiddleware')
 
 Router.use('*', checkAdmin)
-Router.get('/',requireAdminAuth, (req, res) => {
+Router.get('/',requireAdminAuth, async (req, res) => {
+  let faculties = await facultyModel.find().where('id').in(res.locals.admin.faculty)
+  res.locals.faculties = faculties
+  console.log(faculties)
   res.render('views/admin-panel.ejs');
+})
+Router.post('/', async (req,res)=>{
+  let noti = new notiModel(req.body)
+  noti.owner = res.locals.admin.username
+  noti.save()
+  let faculties = await facultyModel.find().where('id').in(res.locals.admin.faculty)
+  res.locals.faculties = faculties
+  res.render('views/admin-panel', {msg: 'Success'})
 })
 Router.get('/login', isLogged, (req, res) => {
   res.render('views/admin-login')

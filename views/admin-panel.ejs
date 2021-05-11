@@ -10,6 +10,7 @@
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
     <title>Admin panel</title>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:500" />
     <link rel="stylesheet" href="/public/stylesheets/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -25,7 +26,7 @@
                 </a>
             </div>
             <div>
-                <a href="#">
+                <a href="/noti">
                     <h1><i class="bi bi-newspaper"></i></h1>    
                 </a>
             </div>
@@ -53,15 +54,38 @@
             </div>
         </div>
     </nav>
-
-    <h1>Admin TDT Network</h1>
-    <p>Hello <%= locals.admin.fullname %> <strong><%= locals.admin.email %></strong> </p>
-    <div>
-        <%= locals.admin %> 
+    <div class="container d-flex justify-content-center">
+        <div class=""></div>
+        <div class="register-form">
+            <h1 class="update-text">Đăng thông báo</h1>
+            <form method="post" action="/admin" class="p-3">
+                <div>
+                    <label for="title">Title</label>
+                    <input type="text" name="title" id="title" class="form-control">
+                </div>
+                <div>
+                    <label for="faculty">Chuyên mục</label>
+                    <select name="faculty" id="falcuty" class="form-select" required>
+                        <% locals.faculties.forEach(function(faculty) { %>
+                            <option value="<%= faculty.id %>"><%= faculty.name %> </option>
+                         <% }); %> 
+                    </select>
+                </div>
+                <div>
+                    <label for="content">Nội dung</label>
+                    <textarea type="text" name="content" id="content" class="form-control"></textarea>
+                </div>
+                <button class="btn btn-primary mt-3" type="submit" >Đăng</button>
+                <% if (locals.msg){ %> 
+                    <div class="alert alert-success mt-3 alert-dismissible fade show" role="alert">
+                        <%= msg %> 
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% } %> 
+               
+            </form>
+        </div>
     </div>
-    
-
-    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="/public/javascripts/main.js"></script>
 </body>

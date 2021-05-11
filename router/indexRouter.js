@@ -6,6 +6,7 @@ const postModel = require('../models/Post.model')
 const sinhvienModel = require('../models/Sinhvien.model')
 const facultyModel = require('../models/Faculty.model')
 const fs = require('fs')
+const notiModel = require('../models/Notification.model')
 
 Router.get('/', requireAuth, (req, res) => {
    res.render('views/index')
@@ -226,6 +227,48 @@ Router.put('/post/:id', (req, res) => {
       else {
          res.status(403).send("You don't have permission")
       }
+   })
+})
+Router.get('/noti', async (req,res)=>{
+   let faculties = await facultyModel.find()
+   let faculty = req.query.faculty
+   let pageIndex = req.query.page || 0
+   let postsCount, totalPages, noties, facultyPostCount
+   postsCount = await notiModel.countDocuments({})
+   if(!faculty){
+      if (postsCount - pageIndex * 10 >= 10) {
+         noties = await notiModel.find({}).sort({ date: -1 }).limit(10).skip(pageIndex * 10)
+      }
+      else if (postsCount - pageIndex * 10 > 0) {
+         noties = await notiModel.find({}).sort({ date: -1 }).limit(postsCount - pageIndex * 10).skip(pageIndex * 10)
+      }
+      if (postsCount<=10){
+         totalPages = 1
+      } else {
+         totalPages = Math.floor(postsCount/10)+1
+      }
+   } else{
+      if (postsCount - pageIndex * 10 >= 10) {
+         noties = await notiModel.find({faculty: faculty}).sort({ date: -1 }).limit(10).skip(pageIndex * 10)
+      }
+      else if (postsCount - pageIndex * 10 > 0) {
+         noties = await notiModel.find({faculty: faculty}).sort({ date: -1 }).limit(postsCount - pageIndex * 10).skip(pageIndex * 10)
+      }
+      facultyPostCount = await notiModel.countDocuments({faculty: faculty})
+      if (facultyPostCount<=10){
+         totalPages = 1
+      } else {
+         totalPages = Math.floor(facultyPostCount/10)+1
+      }
+   }
+   res.render('views/notification-board', {faculties: faculties, selectFaculty: faculty, noties: noties, page: pageIndex, totalPages: totalPages})
+})
+Router.get('/noti/:id', (req,res)=>{
+   let id = req.params.id
+   notiModel.findById(id, (err,noti)=>{
+      facultyModel.findOne({id: noti.faculty}, (err,faculty)=>{
+         res.render('views/noti-detail', {noti: noti, faculty: faculty})
+      })
    })
 })
 

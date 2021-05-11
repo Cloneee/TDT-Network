@@ -9,6 +9,10 @@ const NotiSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    title:{
+        type: String,
+        require: true
+    },
     content: {
         type: String,
         required: true
@@ -19,4 +23,4 @@ const NotiSchema = mongoose.Schema({
     }    
 })
 
-module.exports = mongoose.model('Noti', PostSchema)
+module.exports = mongoose.model('Noti', NotiSchema)
