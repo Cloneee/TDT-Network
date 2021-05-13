@@ -24,7 +24,7 @@
                     <h1><i class="bi bi-house"></i></h1>    
                 </a>
             </div>
-            <div>
+            <div class="border-bottom border-primary border-5">
                 <a href="/noti">
                     <h1><i class="bi bi-newspaper"></i></h1>    
                 </a>
@@ -108,8 +108,7 @@
                 <div class="d-flex flex-column ">
                     <% locals.noties.forEach(function(noti){ %> 
                         <div class="notification-detail p-2 mb-3" id="<%= noti._id%>">
-                            <h3 class="text-uppercase"><%= noti.title %></h3>
-                            <p class="fs-6 fst-italic fw-lighter"></p>
+                            <h5 class="text-uppercase noti-title"><%= noti.title %></h5>
                             <p ><%= noti.content.substring(0,150) %>...</p>
                             <a href ="/noti/<%= noti._id %> "> Chi tiết thông báo </a>
                             <p><%= noti.date %> </p>
@@ -119,9 +118,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div>
-        <%= locals.noties %> 
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>

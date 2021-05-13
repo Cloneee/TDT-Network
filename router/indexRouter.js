@@ -271,5 +271,8 @@ Router.get('/noti/:id', (req,res)=>{
       })
    })
 })
-
+Router.get('/mainpage-noti', async (req,res)=>{
+   let noti = await notiModel.find({}).sort({ date: -1 }).limit(8)
+   res.json(noti)
+})
 module.exports = Router

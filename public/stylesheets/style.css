@@ -426,12 +426,6 @@ input[type="file"] {
   font-family: "roboto";
 }
 
-html,
-body {
-  height: 100%;
-  padding: 0;
-}
-
 .student-login-panel {
   width: 20%;
   border-bottom-left-radius: 25px;
@@ -489,4 +483,8 @@ body {
   cursor: not-allowed;
   opacity: 0.5;
   text-decoration: none;
+}
+.noti-title:hover {
+  color: red;
+  font-size: 150%
 }

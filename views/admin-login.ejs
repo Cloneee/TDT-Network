@@ -30,11 +30,11 @@
                 <label for="password">Password</label>
                 <input class="form-control" type="password" name="password" id="password">
             </div>
-            <% if (typeof e !=='undefined' && e) { %>
-                <div class="alert alert-danger" role="alert">
-                    Something's wrong!
+            <% if (locals.msg) { %>
+                <div class="alert alert-danger mt-3" role="alert">
+                    <%= locals.msg %> 
                 </div>
-                <% } %>
+            <% } %>
                     <button class="admin-login-btn m-2" type="submit" id="submit-btn">Login <i
                             class="bi bi-box-arrow-in-right"></i></button>
         </form>

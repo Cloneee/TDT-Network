@@ -188,6 +188,18 @@ $(document).ready(() => {
     else{
         loadMore(pageIndex)
         pageIndex++
+        $.getJSON(`/mainpage-noti`, (noti) => {
+            if (noti) {
+                $.each(noti, (i, data) => {
+                    $('#noti-board').append(`
+                    <div class="p-2 shadow-sm" id="${data._id}">
+                        <a href="/noti/${data._id}"><h5 class="text-uppercase noti-title">${data.title}</h5></a>
+                        <p class="fw-light">${data.date}</p>
+                    </div>
+                    `)
+                })
+            }
+        })
     }
 })
 
