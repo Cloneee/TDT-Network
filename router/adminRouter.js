@@ -18,7 +18,6 @@ Router.use('*', checkAdmin)
 Router.get('/',requireAdminAuth, async (req, res) => {
   let faculties = await facultyModel.find().where('id').in(res.locals.admin.faculty)
   res.locals.faculties = faculties
-  console.log(faculties)
   res.render('views/admin-panel.ejs');
 })
 Router.post('/', async (req,res)=>{
