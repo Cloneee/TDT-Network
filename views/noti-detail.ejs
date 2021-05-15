@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <link rel="stylesheet" type="text/css" href="../public/stylesheets/style.css" />
     <meta charset="UTF-8" />
@@ -12,14 +11,58 @@
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
     <title>TDT Network</title>
-    
 </head>
-
 <body>
-    <%= locals.noti %> 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <nav class="nav bg-light sticky-top nav-bar mb-2">
+        <div class="container-fluid d-flex justify-content-around" id="img-nav">
+            
+            <img src="/public/logo.png" alt="logo" >
+            <div >
+                <a href="/">
+                    <h1><i class="bi bi-house"></i></h1>    
+                </a>
+            </div>
+            <div class="border-bottom border-primary border-5" >
+                <a href="/noti">
+                    <h1><i class="bi bi-newspaper"></i></h1>    
+                </a>
+            </div>
+            <div>
+                <a href="#">
+                    <h1><i class="bi bi-calendar-date"></i></h1>    
+                </a>
+            </div>
+            <div>
+                <a href="/profile/<%= locals.user.mssv%> ">
+                    <h1><i class="bi bi-person-circle"></i></h1>
+                </a>
+            </div>
+            <div>
+                <a href="/logout">
+                    <h1><i class="bi bi-box-arrow-right"></i></h1>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="news-container">
+        <div class="col-md-12">
+            <h2 class="news-title">
+                <%= locals.noti.title %> 
+            </h2>
+
+            <div class="news-article-summary">
+                <u><i><a style="color:#0061AD !important;" title="Bấm vào đây để xem tất cả các thông báo của Phòng Đại học" href="http://studentnews.tdtu.edu.vn/PhongBan/ThongBaoPhongBan?MaDonVi=P03">Phòng Đại học</a>
+                </i>&nbsp;|<i>Ngày đăng 12/05/2021 </i></u>
+            </div>
+            <br>
+            <br>
+            <div class="news-article-content" id="new_content">
+                <p><%= locals.noti.content %> </p>
+            </div>
+        </div>
+    </div>
     <script src="/public/javascripts/main.js"></script>
 </body>
-
 </html>
+
+

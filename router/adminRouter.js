@@ -179,5 +179,25 @@ Router.post('/profile/:username/password', async (req,res)=>{
     }
   })
 })
-
+Router.put('/noti/:id',async (req,res)=>{
+  let updated = req.body
+  noti = await notiModel.findById(req.params.id)
+  if (locals.admin.username == noti.owner){
+    noti.title = updated.title
+    noti.content = updated.content
+    noti.save()
+    res.send('ok')
+  } else{
+    res.send('Not have permission')
+  }
+})
+Router.delete('/noti/:id', async (req,res)=>{
+  noti = await notiModel.findById(req.params.id)
+  if (locals.admin.username == noti.owner){
+    notiModel.deleteOne({_id: req.params.id})
+    res.send('deleted')
+  } else{
+    res.send('Not have permission')
+  }
+})
 module.exports = Router

@@ -488,3 +488,27 @@ input[type="file"] {
   color: red;
   font-size: 150%
 }
+
+.news-container{
+  height: 80%;
+  justify-content: center;
+  align-items: center;
+  padding: 3% 15% 0 15%;
+}
+.news-title{
+  top: 0px !important;
+  font-size: 2.3em !important;
+  font-weight: bold !important;
+  padding-bottom: 0.5em !important;
+  color: #0061AD !important;
+  line-height: 1.2em !important;
+  text-align: center !important;
+}
+.news-article-summary{
+  color: #0061AD !important;
+  float: right !important;
+}
+.news-article-content{
+  float: left;
+}
+
