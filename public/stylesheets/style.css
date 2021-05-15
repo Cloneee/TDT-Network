@@ -196,6 +196,12 @@ img{
   height: 30px;
   border-radius: 10px;
 }
+#nextPage{
+  margin-left: 10px;
+}
+#prePage{
+  margin-right: 10px;
+}
 .noti{
   word-wrap: break-word;
   max-height: 50px;
@@ -203,6 +209,7 @@ img{
 .noidungbaiviet{
   margin-left: 5px;
 }
+
 .notification-detail{
   height: auto;
   margin-left: 10px;
@@ -488,7 +495,9 @@ input[type="file"] {
   color: red;
   font-size: 150%
 }
-
+#page{
+  border-radius: 7px;
+}
 .news-container{
   height: 80%;
   justify-content: center;
