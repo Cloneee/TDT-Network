@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const passport = require('passport')
 const cookieParser = require('cookie-parser')
-const { requireAuth, checkUser } = require('./middleware/authMiddleware')
+const { requireAuth, checkUser, checkAdmin } = require('./middleware/authMiddleware')
 
 require('dotenv/config')
 require('./passport-setup')
@@ -33,6 +33,7 @@ app.use(passport.initialize())
 app.use(cookieParser());
 
 app.use('*', checkUser)
+app.use('*', checkAdmin)
 
 app.use('/', indexRouter)
 app.use('/admin', adminRouter)

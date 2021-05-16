@@ -366,3 +366,43 @@ function prePage(){
     let selected = $('#page').val()
     $('#page').prop("selectedIndex", selected-1).change()
 }
+// noti edit/delete
+function delete_noti(id){
+    $('#delete-noti-btn').attr('name', id)
+}
+$('#delete-noti-btn').click(() => {
+    let id = $('#delete-noti-btn').attr('name')
+    console.log(id)
+    $.ajax({
+        url: `/admin/noti/${id}`,
+        type: 'DELETE',
+        success: function (result) {
+            console.log(result)
+            $(location).attr('href','/noti')
+        }
+    })
+})
+function edit_noti(id){
+    let content = $(`p[name=${id}]`).text()
+    let title = $(`h2[name=${id}]`).text()
+    $('#content-update').val(content)
+    $('#title-update').val(title)
+    $('#content-update').attr('name', id)
+    $('#title-update').attr('name', id)
+}
+$('#edit-noti-btn').click(() => {
+    let id = $('#content-update').attr('name')
+    let contentUpdated = $('#content-update').val()
+    let titleUpdated = $('#title-update').val()
+    $.ajax({
+        url: `/admin/noti/${id}`,
+        type: 'PUT',
+        data: { title:titleUpdated, content: contentUpdated },
+        success: function (result) {
+            $(`p[name=${id}]`).text(contentUpdated)
+            $(`h2[name=${id}]`).text(titleUpdated)
+            $('#btn-close-modal-edit').click()
+            console.log(result)
+        }
+    })
+})

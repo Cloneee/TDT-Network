@@ -78,7 +78,11 @@ const checkAdmin = (req,res,next) =>{
             }
             else{
                 let admin = await accountModel.findOne({username: decodedToken.username})
-                res.locals.admin = admin
+                if (admin){
+                    res.locals.admin = admin
+                } else{
+                    res.locals.admin = {username: ''}
+                }
                 next()
             }
         })

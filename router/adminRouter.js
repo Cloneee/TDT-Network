@@ -12,9 +12,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const fs = require('fs')
 
-const { requireAdminAuth, checkAdmin, isLogged } = require('../middleware/authMiddleware')
-
-Router.use('*', checkAdmin)
+const { requireAdminAuth, isLogged } = require('../middleware/authMiddleware')
 Router.get('/',requireAdminAuth, async (req, res) => {
   let faculties = await facultyModel.find().where('id').in(res.locals.admin.faculty)
   res.locals.faculties = faculties
@@ -182,7 +180,7 @@ Router.post('/profile/:username/password', async (req,res)=>{
 Router.put('/noti/:id',async (req,res)=>{
   let updated = req.body
   noti = await notiModel.findById(req.params.id)
-  if (locals.admin.username == noti.owner){
+  if (res.locals.admin.username == noti.owner){
     noti.title = updated.title
     noti.content = updated.content
     noti.save()
@@ -193,9 +191,8 @@ Router.put('/noti/:id',async (req,res)=>{
 })
 Router.delete('/noti/:id', async (req,res)=>{
   noti = await notiModel.findById(req.params.id)
-  if (locals.admin.username == noti.owner){
-    notiModel.deleteOne({_id: req.params.id})
-    res.send('deleted')
+  if (res.locals.admin.username == noti.owner){
+    notiModel.deleteOne({_id: req.params.id}).then(res.send('deleted'))
   } else{
     res.send('Not have permission')
   }

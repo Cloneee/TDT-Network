@@ -46,21 +46,69 @@
     </nav>
     <div class="news-container">
         <div class="col-md-12">
-            <h2 class="news-title">
+            <h2 class="news-title" name="<%= locals.noti._id %>">
                 <%= locals.noti.title %> 
             </h2>
-
             <div class="news-article-summary">
-                <u><i><a style="color:#0061AD !important;" title="Bấm vào đây để xem tất cả các thông báo của Phòng Đại học" href="http://studentnews.tdtu.edu.vn/PhongBan/ThongBaoPhongBan?MaDonVi=P03">Phòng Đại học</a>
-                </i>&nbsp;|<i>Ngày đăng 12/05/2021 </i></u>
+                <u><i><a style="color:#0061AD !important;" href="/noti?faculty=<%= locals.noti.faculty %>"><%= locals.noti.faculty %> </a>
+                </i>&nbsp;|<i><%= noti.date %>  </i></u>
             </div>
+
+            <% if (locals.admin){ %> 
+                <% if (locals.admin.username == locals.noti.owner) {%> 
+                    <div>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDelete" name="<%= locals.noti._id %>" onclick="delete_noti(this.name)">
+                            <i class="bi bi-trash-fill"></i>
+                        </button>
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editContentModal" name="<%= locals.noti._id %>" onclick="edit_noti(this.name)">
+                            <i class="bi bi-gear-fill"></i>
+                        </button>
+                    </div>
+                <% } %> 
+            <% } %> 
             <br>
             <br>
             <div class="news-article-content" id="new_content">
-                <p><%= locals.noti.content %> </p>
+                <p name="<%= locals.noti._id %>"><%= locals.noti.content %></p>
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="editContentModal" tabindex="-1" aria-labelledby="editContentModal" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editContentModal">Edit</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input class="form-control" type="text" name="edit-title" id="title-update">
+                <input class="form-control" type="text" name="edit-content" id="content-update">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btn-close-modal-edit">Close</button>
+              <button type="button" class="btn btn-primary" id="edit-noti-btn">Save changes</button>
+            </div>
+          </div>
+        </div>
+
+      </div><div class="modal fade" id="confirmDelete" tabindex="-1" aria-labelledby="confirmDelete" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="confirmDelete">Do you want to delete this post</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btn-close-modal-delete">Close</button>
+              <button type="button" class="btn btn-danger" id="delete-noti-btn">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="/public/javascripts/main.js"></script>
 </body>
 </html>
