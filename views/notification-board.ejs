@@ -106,15 +106,16 @@
                     </div>
                 </form>
                 <div class="d-flex flex-column ">
-                    <% locals.noties.forEach(function(noti){ %> 
-                        <div class="notification-detail p-2 mb-3" id="<%= noti._id%>">
-                            <h5 class="text-uppercase noti-title"><%= noti.title %></h5>
-                            <p ><%= noti.content.substring(0,150) %>...</p>
-                            <a href ="/noti/<%= noti._id %> "> Chi tiết thông báo </a>
-                            <p><%= noti.date %> </p>
-                        </div>
-                    <% }) %> 
-                    
+                    <% if (locals.noties) {%> 
+                        <% locals.noties.forEach(function(noti){ %> 
+                            <div class="notification-detail p-2 mb-3" id="<%= noti._id%>">
+                                <h5 class="text-uppercase noti-title"><%= noti.title %></h5>
+                                <p ><%= noti.content.substring(0,150) %>...</p>
+                                <a href ="/noti/<%= noti._id %> "> Chi tiết thông báo </a>
+                                <p><%= noti.date %> </p>
+                            </div>
+                        <% }) %> 
+                    <% } %> 
                 </div>
             </div>
         </div>
