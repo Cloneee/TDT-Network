@@ -11,7 +11,7 @@ passport.deserializeUser((user, done) => {
 passport.use(new GoogleStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "https://quiet-fjord-16174.herokuapp.com/auth/google/callback"
+    callbackURL: process.env.GOOGLE_CALLBACK
 }, (accessToken, refreshToken, profile, done) => {
     done(null, profile)
 }
